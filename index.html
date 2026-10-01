@@ -32,6 +32,7 @@ dialog.fallback-modal[open]{top:calc(var(--modal-viewport-top,0px) + 16px);max-h
 <div class="shell">
 <header class="brand"><svg class="brand-mark" aria-hidden="true"><use href="#drop"/></svg><div class="brand-copy"><p class="eyebrow">A little record of your day</p><h1>Mum's frequency tracker</h1></div><span class="local-label"><i class="status-dot"></i>Saved on this device</span></header>
 <div id="global-error" class="notice error" role="alert" hidden></div>
+<div id="storage-notice" class="notice no-print" role="status" hidden><p id="storage-notice-text"></p><div class="toolbar"><button id="retry-storage">Retry opening diary</button><button id="download-available">Download available entries</button></div><p class="hint">If earlier entries remain unavailable, close the app and all Chrome windows, then restart your phone and reopen the app. Keep Chrome’s site data in place.</p></div>
 <div id="update-notice" class="notice notice-row" hidden><p>A new version is ready. Your saved entries will stay here.</p><button id="update-button">Update app</button></div>
 <nav class="tabs no-print" aria-label="Main navigation"><button data-view="diary" aria-current="page">Daily diary</button><button data-view="chart">Frequency chart</button><button data-view="settings">Backup &amp; help</button></nav>
 <main>
@@ -44,6 +45,7 @@ dialog.fallback-modal[open]{top:calc(var(--modal-viewport-top,0px) + 16px);max-h
 <p class="footnote">Missed an entry? You can change the date and time when you add it.</p>
 </section>
 <section id="chart-view" aria-label="Frequency chart" hidden>
+<p id="chart-storage-warning" class="notice" hidden></p>
 <div class="print-heading"><h1>Mum's frequency tracker</h1><p id="print-range"></p><p class="print-caption">Frequency–volume chart · Amounts in millilitres (mL) · Dates and times as recorded</p></div>
 <div class="section-head"><p class="eyebrow">Your record, at a glance</p><h2>Frequency &amp; volume chart</h2><p>See when you urinated and how much, alongside everything you drank.</p></div>
 <div class="panel panel-pad no-print"><form id="range-form"><div class="range-row"><label>From<input type="date" id="range-start" required></label><label>To<input type="date" id="range-end" required></label><button type="submit" class="primary">Show chart</button></div><p class="hint">Choose up to 31 days. Days run from midnight to midnight. On a phone, swipe tables sideways to see every column.</p><p id="range-error" class="error notice" role="alert" hidden></p></form><div class="toolbar"><button id="last-three">Last 3 days</button><button id="export-csv">Export CSV</button><button id="print-chart">Print / save PDF</button></div></div>
@@ -56,7 +58,7 @@ dialog.fallback-modal[open]{top:calc(var(--modal-viewport-top,0px) + 16px);max-h
 <div class="settings-grid"><div class="panel panel-pad"><h3>Your entries stay on this device</h3><p>Records are saved in this browser. They are not sent to a server or shared between your phone and computer.</p><p>Clearing browser data or using private browsing can lose your diary. Download a backup regularly and before changing devices or web addresses.</p><div class="button-stack"><button id="export-backup" class="primary">Download backup</button><button id="import-backup">Restore from backup</button><button id="protect-storage">Protect device storage</button></div><p id="storage-state" class="small-text muted"></p><p id="backup-info" class="hint"></p></div>
 <div class="panel panel-pad"><h3>Add to your home screen</h3><p id="install-state">Install the app for easy access. Open it online once to prepare it for offline use.</p><button id="install-app" class="primary" hidden>Install app</button><ol><li><strong>iPhone / iPad:</strong> open the hosted app in Safari, tap Share, then Add to Home Screen.</li><li><strong>Android:</strong> open it in Chrome and choose Install app or Add to Home screen from the menu.</li><li><strong>Computer:</strong> use the install icon in Chrome or Edge’s address bar when available.</li></ol><p id="offline-state" class="hint" style="margin-top:16px"></p></div>
 <div class="panel panel-pad"><h3>Making an entry</h3><p>Tap one of the two large buttons. The time is captured when you tap, so you can take your time entering the amount.</p><p>For a drink, choose the drink type and enter the amount in millilitres (mL). For urination, enter the amount measured. The shortcut amounts are optional; you can type any whole amount.</p><p>Use Edit beside an entry to change or delete it. Dates and times stay as recorded, even if you travel.</p></div>
-<div class="panel panel-pad"><h3>Sharing a chart</h3><p>Open Frequency chart and choose your dates. Export CSV creates a spreadsheet-friendly diary. Print / save PDF opens your device’s print options.</p><p>This is a record of what you enter, with no fluid targets or medical interpretation. Bring the chart to an appointment if it is helpful.</p><p class="small-text">Version 1.1 · Made for Mum</p></div></div>
+<div class="panel panel-pad"><h3>Sharing a chart</h3><p>Open Frequency chart and choose your dates. Export CSV creates a spreadsheet-friendly diary. Print / save PDF opens your device’s print options.</p><p>This is a record of what you enter, with no fluid targets or medical interpretation. Bring the chart to an appointment if it is helpful.</p><p class="small-text">Version 1.2 · Made for Mum</p></div></div>
 </section>
 </main>
 </div>
@@ -246,18 +248,228 @@ document.addEventListener('focusin',event=>{
 
 function icon(type,cls=''){const svg=document.createElementNS('http://www.w3.org/2000/svg','svg');svg.setAttribute('aria-hidden','true');if(cls)svg.setAttribute('class',cls);const use=document.createElementNS(svg.namespaceURI,'use');use.setAttribute('href',type==='drink'?'#cup':'#drop');svg.append(use);return svg}
 function showError(id,message){$(id).textContent=message;$(id).hidden=!message}
-function storageMessage(error){console.error(error);return 'Your entry could not be saved. Device storage may be full or unavailable. Keep this form open, free some space, then try again.'}
-function openDb(){return new Promise((resolve,reject)=>{if(!('indexedDB'in window)){reject(new Error('IndexedDB unavailable'));return}const req=indexedDB.open(DB_NAME,1);req.onupgradeneeded=()=>{const d=req.result;d.createObjectStore('entries',{keyPath:'id'});d.createObjectStore('meta')};req.onsuccess=()=>{const d=req.result;d.onversionchange=()=>{d.close();ready=false;setReady();showError('global-error','The diary was updated in another window. Reload this page before adding more entries.')};resolve(d)};req.onerror=()=>reject(req.error);req.onblocked=()=>showError('global-error','Close other windows of this app, then reload to open the diary.')})}
-function transaction(stores,mode,work){return new Promise((resolve,reject)=>{let result;try{const tx=db.transaction(stores,mode);tx.oncomplete=()=>resolve(typeof result==='function'?result():result);tx.onerror=()=>reject(tx.error||new Error('Storage error'));tx.onabort=()=>reject(tx.error||new Error('Storage transaction cancelled'));result=work(tx)}catch(error){reject(error)}})}
-async function readEntries(){return transaction(['entries'],'readonly',tx=>{const req=tx.objectStore('entries').getAll();return()=>req.result})}
-async function getMeta(key){return transaction(['meta'],'readonly',tx=>{const req=tx.objectStore('meta').get(key);return()=>req.result})}
-async function putMeta(key,value){return transaction(['meta'],'readwrite',tx=>{tx.objectStore('meta').put(value,key)})}
-async function refresh(){entries=await readEntries();entries.sort(sortEntries);renderDiary();renderChart();updateBackupInfo()}
-function setReady(){$('add-drink').disabled=!ready;$('add-urine').disabled=!ready;$('import-backup').disabled=!ready;$('export-backup').disabled=!ready}
-async function changed(){try{await refresh();channel?.postMessage('changed')}catch(error){ready=false;setReady();showError('global-error','The change was saved, but the diary could not be refreshed. Reload this page to see it.')}}
+// A successful Save is one synchronous, atomic on-device journal write.
+// IndexedDB remains the source for older entries and a second copy; its
+// completion events must never be a prerequisite for closing the entry form.
+const JOURNAL_PREFIX=APP+':journal:v1:', SNAPSHOT_KEY=APP+':snapshot:v1:', META_PREFIX=APP+':meta:v1:';
+const STORAGE_TIMEOUT=8000;
+let baseEntries=[],snapshotAt=null,historyComplete=false,localWritable=false,localError=null,localReadError=null,localWriteError=null,lastJournal=[];
+let databaseState='opening',refreshFlight=null,mirrorFlight=null,opening=null,cancelOpening=null,storageEpoch=0,draftId=null;
+const activeTransactions=new Set();
+function storageMessage(error){console.error(error);return 'This entry could not be saved on this device. Your form is still here. Download a backup of your diary, free some device space, then try again.'}
+function storageTimeout(){return new Error('The device did not finish opening its diary storage in time.')}
+function readJournal(){
+  const operations=[];
+  for(let i=0;i<localStorage.length;i++){
+    const key=localStorage.key(i);
+    if(!key?.startsWith(JOURNAL_PREFIX))continue;
+    const op=JSON.parse(localStorage.getItem(key));
+    if(!op||!Number.isSafeInteger(op.order)||typeof op.id!=='string'||!Array.isArray(op.deleted)||op.deleted.some(id=>typeof id!=='string'))throw new Error('The recovery copy could not be read.');
+    op.entries=validateBackup({app:APP,version:1,entries:op.entries});
+    operations.push(op);
+  }
+  lastJournal=operations.sort((a,b)=>a.order-b.order||a.id.localeCompare(b.id));
+  return lastJournal;
+}
+function journalChanges(operations){
+  const changes=new Map();
+  for(const op of operations){for(const entry of op.entries)changes.set(entry.id,entry);for(const id of op.deleted)changes.set(id,null)}
+  return changes;
+}
+function availableEntries(operations=readJournal()){
+  const map=new Map(baseEntries.map(entry=>[entry.id,entry]));
+  for(const [id,entry] of journalChanges(operations)){
+    // A newer edit from an older, still-open app version must also survive.
+    const baseline=map.get(id);
+    if(!entry)map.delete(id);
+    else if(!baseline||Date.parse(entry.updatedAt)>=Date.parse(baseline.updatedAt))map.set(id,entry);
+  }
+  return [...map.values()].sort(sortEntries);
+}
+function initialiseLocalCopy(loadSnapshot=false){
+  if(loadSnapshot)try{
+    const raw=localStorage.getItem(SNAPSHOT_KEY);
+    if(raw){const snapshot=JSON.parse(raw);baseEntries=validateBackup(snapshot);snapshotAt=snapshot.exportedAt}
+  }catch(error){console.warn('Previous recovery snapshot unavailable',error)}
+  try{entries=availableEntries();localReadError=null}catch(error){localReadError=error;console.warn(error)}
+  localWritable=false;
+  try{
+    const probe=APP+':storage-check:'+uid();localStorage.setItem(probe,'1');localStorage.removeItem(probe);localWritable=true;
+    localWriteError=null;
+  }catch(error){localWriteError=error;console.warn(error)}
+  localError=localReadError||localWriteError;
+}
+function updateStorageNotice(){
+  ready=localWritable&&!localError;setReady();
+  const incomplete=!historyComplete||!!localReadError;
+  $('storage-notice').hidden=!incomplete&&!localError;
+  $('retry-storage').disabled=!!refreshFlight;
+  $('retry-storage').textContent=refreshFlight?'Opening diary…':'Retry opening diary';
+  $('download-available').disabled=!entries.length;
+  $('chart-storage-warning').hidden=!incomplete;
+  $('chart-storage-warning').textContent='Earlier entries may be missing while the saved diary is unavailable. The figures below show available records only. Full chart export will be available after the diary opens.';
+  $('print-chart').disabled=incomplete;
+  $('export-csv').disabled=incomplete||!rangeEntries().length;
+  if(localError)$('storage-notice-text').textContent='The on-device save copy is unavailable. Your existing diary has not been cleared. Download the available entries before freeing device space, then retry.';
+  else if(incomplete){
+    const state=databaseState==='opening'?'Opening your earlier saved diary.':'Your earlier saved diary could not be opened.';
+    const copy=snapshotAt?' Showing the last available copy from '+new Date(snapshotAt).toLocaleString('en-AU')+'.':' Earlier entries may be missing from this view.';
+    $('storage-notice-text').textContent=state+copy+(ready?' You can keep recording; new entries are saved on this device.':' Your existing diary has not been cleared.');
+  }
+  if(incomplete&&!entries.some(e=>e.localDate===selectedDate)){
+    $('diary-empty').hidden=true;$('entry-count').textContent='Earlier entries unavailable';
+    $('total-in').textContent='—';$('total-out').textContent='—';$('void-count').textContent='—';$('drink-count').textContent='Available records only';
+  }
+}
+function renderAvailable(){
+  try{entries=availableEntries();localReadError=null}catch(error){localReadError=error;entries=availableEntries(lastJournal);console.warn(error)}
+  localError=localReadError||localWriteError;
+  renderDiary();renderChart();updateStorageNotice();
+}
+function saveChanges(puts=[],deleted=[],preserveTimes=false){
+  const operations=readJournal();
+  const previous=operations.length?operations[operations.length-1].order:0;
+  const priorChanges=journalChanges(operations);
+  if(!preserveTimes||puts.some(entry=>priorChanges.has(entry.id)&&priorChanges.get(entry.id)===null)){
+    const previousTimes=new Map();
+    for(const entry of [...baseEntries,...operations.flatMap(op=>op.entries)])previousTimes.set(entry.id,Math.max(previousTimes.get(entry.id)||0,Date.parse(entry.updatedAt)));
+    puts=puts.map(entry=>preserveTimes&&priorChanges.get(entry.id)!==null?entry:({...entry,updatedAt:new Date(Math.max(Date.parse(entry.updatedAt),(previousTimes.get(entry.id)||0)+1)).toISOString()}));
+  }
+  const op={id:uid(),order:Math.max(Date.now(),previous+1),entries:puts,deleted};
+  validateBackup({app:APP,version:1,entries:puts});
+  // Do not mirror, show success, or change the diary before setItem succeeds.
+  try{localStorage.setItem(JOURNAL_PREFIX+op.id,JSON.stringify(op))}
+  catch(error){localWriteError=error;localError=error;localWritable=false;updateStorageNotice();throw error}
+  localWritable=true;localError=null;localReadError=null;localWriteError=null;
+}
+function retireConnection(connection){
+  if(db===connection)db=null;
+  try{connection?.close()}catch{}
+}
+function openDb(){
+  if(db)return Promise.resolve(db);
+  if(opening)return opening;
+  const epoch=storageEpoch;
+  const promise=new Promise((resolve,reject)=>{
+    let settled=false,request;
+    const timer=setTimeout(()=>finish(storageTimeout()),STORAGE_TIMEOUT);
+    function finish(error,connection){
+      if(settled){if(connection)connection.close();return}
+      settled=true;clearTimeout(timer);
+      if(error)reject(error);else resolve(connection);
+    }
+    cancelOpening=()=>finish(new Error('Diary opening paused'));
+    try{
+      request=indexedDB.open(DB_NAME,1);
+      request.onupgradeneeded=()=>{
+        if(settled||epoch!==storageEpoch){request.transaction.abort();return}
+        const connection=request.result;
+        if(!connection.objectStoreNames.contains('entries'))connection.createObjectStore('entries',{keyPath:'id'});
+        if(!connection.objectStoreNames.contains('meta'))connection.createObjectStore('meta');
+      };
+      request.onsuccess=()=>{
+        const connection=request.result;
+        if(settled||epoch!==storageEpoch){connection.close();finish(storageTimeout());return}
+        connection.onversionchange=()=>{retireConnection(connection);historyComplete=false;databaseState='unavailable';updateStorageNotice()};
+        connection.onclose=()=>{if(db===connection){db=null;historyComplete=false;databaseState='unavailable';updateStorageNotice()}};
+        db=connection;finish(null,connection);
+      };
+      request.onerror=()=>finish(request.error||new Error('Diary storage unavailable'));
+      request.onblocked=()=>{databaseState='unavailable';updateStorageNotice()};
+    }catch(error){finish(error)}
+  });
+  opening=promise;
+  promise.finally(()=>{if(opening===promise){opening=null;cancelOpening=null}}).catch(()=>{});
+  return promise;
+}
+function transaction(stores,mode,work){return new Promise((resolve,reject)=>{
+  const connection=db;let tx,result,settled=false;
+  const timer=setTimeout(()=>{
+    try{tx?.abort()}catch{}
+    retireConnection(connection);finish(storageTimeout());
+  },STORAGE_TIMEOUT);
+  function finish(error){
+    if(settled)return;settled=true;clearTimeout(timer);activeTransactions.delete(cancel);
+    if(error){reject(error);return}
+    try{resolve(typeof result==='function'?result():result)}catch(error){reject(error)}
+  }
+  function cancel(){try{tx?.abort()}catch{}finish(new Error('Diary connection paused'))}
+  activeTransactions.add(cancel);
+  try{
+    if(!connection)throw new Error('Diary storage unavailable');
+    tx=connection.transaction(stores,mode);
+    tx.oncomplete=()=>finish();tx.onabort=()=>finish(tx.error||new Error('Storage transaction cancelled'));
+    tx.onerror=()=>{try{tx.abort()}catch{}finish(tx.error||new Error('Storage error'))};
+    result=work(tx);
+  }catch(error){try{tx?.abort()}catch{}finish(error)}
+})}
+async function readDatabaseEntries(){return transaction(['entries'],'readonly',tx=>{const req=tx.objectStore('entries').getAll();return()=>req.result})}
+async function getMeta(key){
+  const value=localStorage.getItem(META_PREFIX+key);if(value)return JSON.parse(value);
+  if(!db)return null;
+  return transaction(['meta'],'readonly',tx=>{const req=tx.objectStore('meta').get(key);return()=>req.result});
+}
+async function putMeta(key,value){localStorage.setItem(META_PREFIX+key,JSON.stringify(value))}
+function readEntries(){return Promise.resolve(availableEntries())}
+function mirrorJournal(){
+  if(!db||mirrorFlight)return;
+  const epoch=storageEpoch;
+  const flight=(async()=>{
+    let signature;
+    do{
+      const operations=readJournal();signature=operations.map(op=>op.id).join(',');
+      if(!operations.length)return;
+      const changes=journalChanges(operations);
+      await transaction(['entries'],'readwrite',tx=>{
+        const store=tx.objectStore('entries');
+        for(const [id,entry] of changes){
+          if(!entry){store.delete(id);continue}
+          const request=store.get(id);
+          request.onsuccess=()=>{try{if(!request.result||Date.parse(entry.updatedAt)>=Date.parse(request.result.updatedAt))store.put(entry)}catch(error){try{tx.abort()}catch{}}};
+        }
+      });
+      if(epoch!==storageEpoch)return;
+    }while(db&&signature!==readJournal().map(op=>op.id).join(','));
+  })().catch(error=>{
+    console.warn('Second diary copy unavailable',error);
+    if(epoch===storageEpoch){historyComplete=false;databaseState='unavailable';updateStorageNotice()}
+  });
+  mirrorFlight=flight;
+  flight.finally(()=>{if(mirrorFlight===flight)mirrorFlight=null}).catch(()=>{});
+}
+function refresh(){
+  renderAvailable();
+  if(refreshFlight)return refreshFlight;
+  const epoch=storageEpoch;databaseState='opening';
+  const flight=(async()=>{
+    await openDb();if(epoch!==storageEpoch)return;const records=await readDatabaseEntries();
+    if(epoch!==storageEpoch)return;
+    baseEntries=validateBackup({app:APP,version:1,entries:records});historyComplete=true;databaseState='ready';
+    renderAvailable();
+    // Keep a last complete copy. Never overwrite it after a failed/partial read.
+    if(!localReadError)try{const stamp=new Date().toISOString();localStorage.setItem(SNAPSHOT_KEY,JSON.stringify({app:APP,version:1,exportedAt:stamp,entries}));snapshotAt=stamp}catch(error){console.warn('Snapshot unchanged',error)}
+    updateBackupInfo();mirrorJournal();
+  })().catch(error=>{
+    console.warn('Earlier diary unavailable',error);
+    if(epoch===storageEpoch){historyComplete=false;databaseState='unavailable';renderAvailable()}
+  });
+  refreshFlight=flight;
+  flight.finally(()=>{if(refreshFlight===flight){refreshFlight=null;updateStorageNotice()}}).catch(()=>{});
+  updateStorageNotice();return flight;
+}
+function setReady(){$('add-drink').disabled=!ready;$('add-urine').disabled=!ready;$('import-backup').disabled=!ready;$('export-backup').disabled=!historyComplete&&!entries.length}
+async function changed(){renderAvailable();try{channel?.postMessage('changed')}catch{}mirrorJournal()}
+function suspendStorage(){
+  storageEpoch++;cancelOpening?.();cancelOpening=null;opening=null;refreshFlight=null;mirrorFlight=null;
+  for(const cancel of [...activeTransactions])cancel();retireConnection(db);
+  try{channel?.close()}catch{}channel=null;
+}
+function connectChannel(){try{if(!channel){channel=new BroadcastChannel(APP);channel.onmessage=()=>{renderAvailable();refresh()}}}catch{}}
+function resumeStorage(){connectChannel();if(!document.hidden){$('diary-date').max=today();refresh()}}
+
 function totals(list){const drinks=list.filter(e=>e.kind==='drink'),voids=list.filter(e=>e.kind==='urine');const volume=voids.reduce((n,e)=>n+e.amount,0);return{intake:drinks.reduce((n,e)=>n+e.amount,0),output:volume,drinks:drinks.length,visits:voids.length,average:voids.length?Math.round(volume/voids.length):null,largest:voids.length?voids.reduce((highest,e)=>Math.max(highest,e.amount),0):null}}
 function renderDiary(){const list=entries.filter(e=>e.localDate===selectedDate);const t=totals(list);$('diary-date').value=selectedDate;$('day-title').textContent=selectedDate===today()?'Today':selectedDate===shiftDay(today(),-1)?'Yesterday':parseDay(selectedDate).toLocaleDateString('en-AU',{weekday:'long'});$('day-subtitle').textContent=formatDay(selectedDate);$('total-in').textContent=num(t.intake);$('total-out').textContent=num(t.output);$('drink-count').textContent=`${t.drinks} ${t.drinks===1?'drink':'drinks'} recorded`;$('void-count').textContent=t.visits;$('entry-count').textContent=`${list.length} ${list.length===1?'entry':'entries'}`;$('diary-empty').hidden=list.length>0;$('next-day').disabled=selectedDate>=today();$('go-today').disabled=selectedDate===today();replaceContent($('entry-list'),...list.slice().reverse().map(e=>{const button=node('button',{class:'edit','aria-label':`Edit ${e.kind==='drink'?e.drink:'urination'} at ${e.localTime}`},'Edit');button.addEventListener('click',()=>openEntry(e.kind,e));return node('li',{class:'entry'},node('time',{datetime:`${e.localDate}T${e.localTime}`},e.localTime),node('span',{class:'entry-icon'+(e.kind==='urine'?' out':'')},icon(e.kind)),node('div',{class:'entry-description'},node('div',{class:'entry-title'},e.kind==='drink'?e.drink:'Urination'),node('div',{class:'entry-meta'},e.note||(e.kind==='drink'?'Fluid in':'Fluid out'))),node('div',{class:'entry-amount'},num(e.amount),' ',node('small',{},'mL')),button)}))}
-function selectDay(day){if(!validDay(day))return;selectedDate=day;renderDiary()}
+function selectDay(day){if(!validDay(day))return;selectedDate=day;renderDiary();updateStorageNotice()}
 function datesInRange(){let days=[],d=rangeStart;while(d<=rangeEnd&&days.length<31){days.push(d);d=shiftDay(d,1)}return days}
 function rangeEntries(){return entries.filter(e=>e.localDate>=rangeStart&&e.localDate<=rangeEnd)}
 function svgNode(tag,attrs={},text){const el=document.createElementNS('http://www.w3.org/2000/svg',tag);for(const[k,v]of Object.entries(attrs))el.setAttribute(k,v);if(text!==undefined)el.textContent=text;return el}
@@ -281,12 +493,12 @@ function renderChart(){
       data.length?makePlot(data,max,d):node('p',{class:'hint'},'No urination entries recorded for this day.'));
   }));
   replaceContent($('chart-rows'),...(list.length?list.map(e=>node('tr',{},node('td',{},formatDay(e.localDate)),node('td',{},e.localTime),node('td',{},e.kind==='drink'?e.drink:'Urination'),node('td',{class:'num'},e.kind==='drink'?num(e.amount):'—'),node('td',{class:'num'},e.kind==='urine'?num(e.amount):'—'),node('td',{class:'note-cell'},e.note))):[node('tr',{},node('td',{colspan:6},'No entries in this date range.'))]));
-  $('export-csv').disabled=!list.length;
+  $('export-csv').disabled=!historyComplete||!!localReadError||!list.length;
 }
 function setView(view){activeView=view;for(const key of ['diary','chart','settings'])$(key+'-view').hidden=key!==view;document.querySelectorAll('[data-view]').forEach(b=>{if(b.dataset.view===view)b.setAttribute('aria-current','page');else b.removeAttribute('aria-current')});if(view==='chart')renderChart();if(view==='settings')updateStorageStatus()}
 function chooseDrink(drink){drinkChoice=drink;document.querySelectorAll('[data-drink]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.drink===drink)));$('other-drink-label').hidden=drink!=='Other';$('other-drink').required=drink==='Other'}
-function openEntry(kind,existing=null){if(!ready){showError('global-error','The diary is still opening. Please wait a moment and try again.');return}try{editing=existing;entryKind=kind;captured=new Date();$('entry-form').reset();$('entry-date').value=existing?.localDate||dateKey(captured);$('entry-time').value=existing?.localTime||timeKey(captured);$('entry-date').max=existing&&existing.localDate>today()?existing.localDate:today();$('entry-amount').value=existing?.amount||'';$('entry-note').value=existing?.note||'';$('drink-field').hidden=kind!=='drink';$('amount-label').textContent=kind==='drink'?'Amount in':'Amount out';$('entry-dialog-title').textContent=existing?(kind==='drink'?'Edit drink':'Edit urination'):(kind==='drink'?'Add a drink':'Add urination');$('save-entry').textContent=existing?'Save changes':kind==='drink'?'Save drink':'Save urination';$('delete-row').hidden=!existing;chooseDrink(existing?(DRINKS.slice(0,-1).includes(existing.drink)?existing.drink:existing.kind==='drink'?'Other':''):'');if(drinkChoice==='Other')$('other-drink').value=existing.drink;showError('entry-error','');openDialog($('entry-dialog'));if(kind==='urine'||existing)$('entry-amount').focus();else document.querySelector('[data-drink]').focus()}catch(error){console.error(error);showError('global-error','The entry form could not open. Close and reopen the app, then try again. Your saved entries have not been changed.')}}
-function closeEntry(){if(!saving)closeDialog($('entry-dialog'))}
+function openEntry(kind,existing=null){if(!ready){showError('global-error','The diary is still opening. Please wait a moment and try again.');return}try{editing=existing;draftId=existing?.id||uid();entryKind=kind;captured=new Date();$('entry-form').reset();$('entry-date').value=existing?.localDate||dateKey(captured);$('entry-time').value=existing?.localTime||timeKey(captured);$('entry-date').max=existing&&existing.localDate>today()?existing.localDate:today();$('entry-amount').value=existing?.amount||'';$('entry-note').value=existing?.note||'';$('drink-field').hidden=kind!=='drink';$('amount-label').textContent=kind==='drink'?'Amount in':'Amount out';$('entry-dialog-title').textContent=existing?(kind==='drink'?'Edit drink':'Edit urination'):(kind==='drink'?'Add a drink':'Add urination');$('save-entry').textContent=existing?'Save changes':kind==='drink'?'Save drink':'Save urination';$('delete-row').hidden=!existing;chooseDrink(existing?(DRINKS.slice(0,-1).includes(existing.drink)?existing.drink:existing.kind==='drink'?'Other':''):'');if(drinkChoice==='Other')$('other-drink').value=existing.drink;showError('entry-error','');openDialog($('entry-dialog'));if(kind==='urine'||existing)$('entry-amount').focus();else document.querySelector('[data-drink]').focus()}catch(error){console.error(error);showError('global-error','The entry form could not open. Close and reopen the app, then try again. Your saved entries have not been changed.')}}
+function closeEntry(){closeDialog($('entry-dialog'))}
 function entryFromForm(){
   const rawTime=$('entry-time').value;
   const time=/^([01]\d|2[0-3]):[0-5]\d(?::00(?:\.0+)?)?$/.test(rawTime)?rawTime.slice(0,5):rawTime;
@@ -306,7 +518,7 @@ function entryFromForm(){
     drink=drinkChoice==='Other'?$('other-drink').value.trim():drinkChoice;
     if(!drink)throw new Error('Please enter the drink name.');
   }
-  return{id:editing?.id||uid(),kind:entryKind,amount,drink,note,localDate:day,localTime:time,timestamp,utcOffsetMinutes:sameTime?editing.utcOffsetMinutes:originalTime?-captured.getTimezoneOffset():-date.getTimezoneOffset(),createdAt:editing?.createdAt||new Date().toISOString(),updatedAt:new Date().toISOString()};
+  return{id:editing?.id||draftId,kind:entryKind,amount,drink,note,localDate:day,localTime:time,timestamp,utcOffsetMinutes:sameTime?editing.utcOffsetMinutes:originalTime?-captured.getTimezoneOffset():-date.getTimezoneOffset(),createdAt:editing?.createdAt||new Date().toISOString(),updatedAt:new Date().toISOString()};
 }
 function showEntryError(message){
   showError('entry-error',message);
@@ -314,7 +526,7 @@ function showEntryError(message){
 }
 async function saveEntry(event){
   event.preventDefault();
-  if(saving)return;
+  if(saving||!$('entry-dialog').hasAttribute('open'))return;
   showError('entry-error','');
   let entry;
   // Validate here so a mobile browser cannot silently block the submit event
@@ -323,58 +535,77 @@ async function saveEntry(event){
   saving=true;
   const button=$('save-entry'),label=button.textContent;
   button.disabled=true;button.textContent='Saving…';
-  const saveTimer=setTimeout(()=>showEntryError('Saving is taking longer than usual. Keep this form open while the device finishes saving.'),10000);
   try{
-    await transaction(['entries'],'readwrite',tx=>tx.objectStore('entries').put(entry));
-    clearTimeout(saveTimer);
+    saveChanges([entry]);
     selectedDate=entry.localDate;
     closeDialog($('entry-dialog'));
     await changed();
     toast(editing?'Changes saved':entry.kind==='drink'?'Drink saved':'Urination saved');
-    navigator.storage?.persist?.().catch(()=>{});
   }catch(error){showEntryError(storageMessage(error))}
-  finally{clearTimeout(saveTimer);saving=false;button.disabled=false;button.textContent=label}
+  finally{saving=false;button.disabled=false;button.textContent=label}
 }
 function toast(message,undo=null){clearTimeout(toastTimer);$('toast-message').textContent=message;$('toast-undo').hidden=!undo;$('toast-undo').onclick=async()=>{try{await undo();$('toast').hidden=true}catch(error){showError('global-error',storageMessage(error))}};$('toast').hidden=false;toastTimer=setTimeout(()=>$('toast').hidden=true,undo?15000:5000)}
 function confirmDialog(title,message,label,action,danger=false){$('confirm-title').textContent=title;$('confirm-message').textContent=message;$('confirm-ok').textContent=label;$('confirm-ok').className=danger?'danger':'primary';showError('confirm-error','');confirmAction=action;openDialog($('confirm-dialog'));$('confirm-cancel').focus()}
-function requestDelete(){if(!editing||saving)return;const old=editing;confirmDialog('Delete this entry?',`${old.kind==='drink'?old.drink:'Urination'} · ${old.amount} mL · ${formatDay(old.localDate)} at ${old.localTime}`,'Delete entry',async()=>{await transaction(['entries'],'readwrite',tx=>tx.objectStore('entries').delete(old.id));closeDialog($('entry-dialog'));await changed();toast('Entry deleted',async()=>{await transaction(['entries'],'readwrite',tx=>tx.objectStore('entries').put({...old,updatedAt:new Date().toISOString()}));await changed()})},true)}
+function requestDelete(){if(!editing||saving)return;const old=editing;confirmDialog('Delete this entry?',`${old.kind==='drink'?old.drink:'Urination'} · ${old.amount} mL · ${formatDay(old.localDate)} at ${old.localTime}`,'Delete entry',async()=>{saveChanges([],[old.id]);closeDialog($('entry-dialog'));await changed();toast('Entry deleted',async()=>{saveChanges([{...old,updatedAt:new Date().toISOString()}]);await changed()})},true)}
 function applyRange(){const start=$('range-start').value,end=$('range-end').value;let error='';if(!validDay(start)||!validDay(end))error='Choose valid start and end dates.';else if(end<start)error='The end date must be on or after the start date.';else if(end>shiftDay(start,30))error='Choose a range of 31 days or fewer.';showError('range-error',error);if(error)return false;rangeStart=start;rangeEnd=end;renderChart();return true}
 function download(content,type,filename){const blob=new Blob([content],{type}),url=URL.createObjectURL(blob),a=node('a',{href:url,download:filename});document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),60000)}
 function csvCell(value){let s=String(value??'');if(/^(?:\s*[=+\-@]|[\t\r])/.test(s))s="'"+s;return '"'+s.replace(/"/g,'""')+'"'}
 function exportCSV(){if(!applyRange())return;const rows=[['Date','Time','Event','Drink type','Fluid in (mL)','Urine out (mL)','Notes','UTC offset (minutes)','Timestamp (UTC)'],...rangeEntries().map(e=>[e.localDate,e.localTime,e.kind==='drink'?'Drink':'Urination',e.drink,e.kind==='drink'?e.amount:'',e.kind==='urine'?e.amount:'',e.note,e.utcOffsetMinutes,e.timestamp])];download('\uFEFF'+rows.map(r=>r.map(csvCell).join(',')).join('\r\n'),'text/csv;charset=utf-8',`frequency-diary_${rangeStart}_to_${rangeEnd}.csv`);toast('CSV download requested')}
-async function exportBackup(){try{const data=await readEntries();download(JSON.stringify({app:APP,version:1,exportedAt:new Date().toISOString(),entries:data},null,2),'application/json',`mums-frequency-tracker-backup_${today()}.json`);await putMeta('lastBackup',new Date().toISOString());await updateBackupInfo();toast('Backup download requested')}catch(error){showError('global-error','The backup could not be created. Please try again.')}}
+async function exportBackup(){
+  try{
+    let data;try{data=availableEntries()}catch{data=entries}
+    const partial=!historyComplete||!!localReadError;
+    download(JSON.stringify({app:APP,version:1,exportedAt:new Date().toISOString(),incomplete:partial,description:partial?'Available entries only. Earlier entries could not be opened; this may not be the whole diary.':'Complete diary backup.',entries:data},null,2),'application/json',`mums-frequency-tracker-${partial?'available-entries':'backup'}_${today()}.json`);
+    try{await putMeta('lastBackup',new Date().toISOString());await updateBackupInfo()}catch{}
+    toast(partial?'Available entries downloaded; earlier entries may be missing.':'Backup download requested');
+  }catch(error){showError('global-error','The available diary could not be downloaded. Your stored data has not been cleared.')}
+}
 function validateBackup(data){if(!data||data.app!==APP||data.version!==1||!Array.isArray(data.entries))throw new Error('This is not a supported Mum’s frequency tracker backup.');if(data.entries.length>100000)throw new Error('This backup contains too many entries.');const ids=new Set();return data.entries.map(e=>{if(!e||typeof e.id!=='string'||!e.id||e.id.length>150||ids.has(e.id)||!['drink','urine'].includes(e.kind)||!Number.isInteger(e.amount)||e.amount<1||e.amount>10000||!validDay(e.localDate)||typeof e.localTime!=='string'||!/^([01]\d|2[0-3]):[0-5]\d$/.test(e.localTime)||typeof e.drink!=='string'||e.drink.length>60||(e.kind==='drink'&&!e.drink.trim())||(e.kind==='urine'&&e.drink!=='')||typeof e.note!=='string'||e.note.length>500||!Number.isInteger(e.utcOffsetMinutes)||Math.abs(e.utcOffsetMinutes)>840||![e.timestamp,e.createdAt,e.updatedAt].every(v=>typeof v==='string'&&/^\d{4}-\d\d-\d\dT\d\d:\d\d:\d\d(?:\.\d{3})?Z$/.test(v)&&Number.isFinite(Date.parse(v))))throw new Error('The backup contains an invalid or duplicate entry. Nothing has been imported.');const wall=new Date(Date.parse(e.timestamp)+e.utcOffsetMinutes*60000).toISOString().slice(0,16);if(wall!==`${e.localDate}T${e.localTime}`)throw new Error('An entry has an inconsistent date or time. Nothing has been imported.');ids.add(e.id);return{id:e.id,kind:e.kind,amount:e.amount,drink:e.drink,note:e.note,localDate:e.localDate,localTime:e.localTime,timestamp:e.timestamp,utcOffsetMinutes:e.utcOffsetMinutes,createdAt:e.createdAt,updatedAt:e.updatedAt}})}
-async function importFile(file){if(!file)return;try{if(file.size>30*1024*1024)throw new Error('Choose a backup smaller than 30 MB.');const incoming=validateBackup(JSON.parse(await file.text()));const current=await readEntries(),byId=new Map(current.map(e=>[e.id,e]));let added=0,updated=0;for(const e of incoming){const old=byId.get(e.id);if(!old)added++;else if(Date.parse(e.updatedAt)>Date.parse(old.updatedAt))updated++}confirmDialog('Restore this backup?',`${incoming.length} entries checked. ${added} new entries and ${updated} newer versions can be added. Existing entries are kept; matching entries use the most recently edited version.`,'Restore backup',async()=>{await transaction(['entries','meta'],'readwrite',tx=>{const store=tx.objectStore('entries');const req=store.getAll();req.onsuccess=()=>{const latest=req.result;tx.objectStore('meta').put({savedAt:new Date().toISOString(),entries:latest},'beforeImport');const map=new Map(latest.map(e=>[e.id,e]));for(const e of incoming){const old=map.get(e.id);if(!old||Date.parse(e.updatedAt)>Date.parse(old.updatedAt))store.put(e)}}});await changed();toast('Backup restored')})}catch(error){confirmDialog('Backup not restored',error instanceof SyntaxError?'This file is not valid JSON. Your diary has not changed.':error.message,'OK',async()=>{});$('confirm-cancel').hidden=true}finally{$('backup-file').value=''}}
-async function updateBackupInfo(){if(!db)return;try{const stamp=await getMeta('lastBackup');$('backup-info').textContent=stamp?`Last backup download requested: ${new Date(stamp).toLocaleString('en-AU')}. Keep the downloaded file somewhere safe.`:'No backup downloaded yet.'}catch{}}
+async function importFile(file){
+  if(!file)return;
+  try{
+    if(file.size>30*1024*1024)throw new Error('Choose a backup smaller than 30 MB.');
+    const incoming=validateBackup(JSON.parse(await file.text()));
+    const current=availableEntries(),byId=new Map(current.map(e=>[e.id,e]));
+    let added=0,updated=0;
+    for(const e of incoming){const old=byId.get(e.id);if(!old)added++;else if(Date.parse(e.updatedAt)>Date.parse(old.updatedAt))updated++}
+    confirmDialog('Restore this backup?',`${incoming.length} entries checked. ${added} new entries and ${updated} newer versions can be added. Existing entries are kept; matching entries use the most recently edited version. Entries deleted since this backup can be restored.`+(!historyComplete?' Earlier entries are currently unavailable; they will be merged when the diary opens.':''),'Restore backup',async()=>{
+      const latest=new Map(availableEntries().map(e=>[e.id,e]));
+      const accepted=incoming.filter(e=>!latest.has(e.id)||Date.parse(e.updatedAt)>Date.parse(latest.get(e.id).updatedAt));
+      if(accepted.length)saveChanges(accepted,[],true);
+      await changed();toast('Backup restored');
+    });
+  }catch(error){confirmDialog('Backup not restored',error instanceof SyntaxError?'This file is not valid JSON. Your diary has not changed.':error.message,'OK',async()=>{});$('confirm-cancel').hidden=true}
+  finally{$('backup-file').value=''}
+}
+async function updateBackupInfo(){try{const stamp=await getMeta('lastBackup');$('backup-info').textContent=stamp?`Last backup download requested: ${new Date(stamp).toLocaleString('en-AU')}. Keep the downloaded file somewhere safe.`:'No backup downloaded yet.'}catch{}}
 async function updateStorageStatus(){try{if(!navigator.storage?.persisted){$('storage-state').textContent='Storage protection is not available in this browser. Keep a downloaded backup.';return}const protectedStorage=await navigator.storage.persisted();$('storage-state').textContent=protectedStorage?'Persistent storage is enabled. Downloaded backups are still recommended.':'Download backups regularly. You can ask your browser to protect this app’s storage.'}catch{$('storage-state').textContent='Keep a downloaded backup of your diary.'}}
 async function setupPWA(){if(location.protocol==='file:'){$('install-state').textContent='You are using the HTML file directly. To install on a phone, open a hosted HTTPS copy of this folder. For a computer preview, use start-local.ps1.';$('offline-state').textContent='The HTML file works locally; PWA offline installation needs HTTPS or localhost.';return}if(!('serviceWorker'in navigator)||!isSecureContext){$('offline-state').textContent='Offline installation needs HTTPS or localhost in a supported browser.';return}try{const registration=await navigator.serviceWorker.register('./sw.js',{scope:'./'});function offerUpdate(){if(registration.waiting&&navigator.serviceWorker.controller){waitingWorker=registration.waiting;$('update-notice').hidden=false}}offerUpdate();registration.addEventListener('updatefound',()=>{const worker=registration.installing;worker?.addEventListener('statechange',()=>{if(worker.state==='installed')offerUpdate()})});navigator.serviceWorker.ready.then(()=>$('offline-state').textContent='Offline app files are ready on this device.');let refreshing=false;navigator.serviceWorker.addEventListener('controllerchange',()=>{if(waitingWorker&&!refreshing){if(document.querySelector('dialog[open]')||saving){updateActivated=true;$('update-notice').hidden=false;$('update-notice').querySelector('p').textContent='The app was updated in another window. Save your entry, then reload when ready.';$('update-button').textContent='Reload app';return}refreshing=true;location.reload()}})}catch(error){$('offline-state').textContent='Offline setup is not ready. Reopen the app online to try again.';console.warn(error)}}
 document.querySelectorAll('[data-view]').forEach(b=>b.addEventListener('click',()=>setView(b.dataset.view)));
 for(const drink of DRINKS){const button=node('button',{type:'button','data-drink':drink,'aria-pressed':'false'},drink);button.addEventListener('click',()=>{chooseDrink(drink);if(drink==='Other')$('other-drink').focus()});$('drink-options').append(button)}
-$('add-drink').addEventListener('click',()=>openEntry('drink'));$('add-urine').addEventListener('click',()=>openEntry('urine'));$('close-entry').addEventListener('click',closeEntry);$('cancel-entry').addEventListener('click',closeEntry);$('entry-dialog').addEventListener('cancel',event=>{if(saving)event.preventDefault()});$('confirm-dialog').addEventListener('cancel',event=>{if($('confirm-ok').disabled)event.preventDefault()});$('entry-form').addEventListener('submit',saveEntry);$('delete-entry').addEventListener('click',requestDelete);
+$('add-drink').addEventListener('click',()=>openEntry('drink'));$('add-urine').addEventListener('click',()=>openEntry('urine'));$('close-entry').addEventListener('click',closeEntry);$('cancel-entry').addEventListener('click',closeEntry);$('confirm-dialog').addEventListener('cancel',event=>{if($('confirm-ok').disabled)event.preventDefault()});$('entry-form').addEventListener('submit',saveEntry);$('delete-entry').addEventListener('click',requestDelete);
 document.querySelectorAll('[data-amount]').forEach(b=>b.addEventListener('click',()=>{$('entry-amount').value=b.dataset.amount}));
 $('previous-day').addEventListener('click',()=>selectDay(shiftDay(selectedDate,-1)));$('next-day').addEventListener('click',()=>selectDay(shiftDay(selectedDate,1)));$('go-today').addEventListener('click',()=>selectDay(today()));$('diary-date').addEventListener('change',event=>selectDay(event.target.value));$('diary-date').max=today();
 $('range-start').value=rangeStart;$('range-end').value=rangeEnd;$('range-form').addEventListener('submit',event=>{event.preventDefault();applyRange()});$('last-three').addEventListener('click',()=>{$('range-start').value=shiftDay(today(),-2);$('range-end').value=today();applyRange()});$('export-csv').addEventListener('click',exportCSV);$('print-chart').addEventListener('click',()=>{if(applyRange())window.print()});
 $('export-backup').addEventListener('click',exportBackup);$('import-backup').addEventListener('click',()=>$('backup-file').click());$('backup-file').addEventListener('change',event=>importFile(event.target.files[0]));$('protect-storage').addEventListener('click',async()=>{try{const granted=await navigator.storage?.persist?.();toast(granted?'Storage protection enabled':'Keep a downloaded backup; storage protection was not granted.');updateStorageStatus()}catch{toast('Storage protection is not available here. Keep a backup.')}});
 $('confirm-cancel').addEventListener('click',()=>closeDialog($('confirm-dialog')));$('confirm-dialog').addEventListener('close',()=>{$('confirm-cancel').hidden=false});$('confirm-ok').addEventListener('click',async()=>{if(!confirmAction)return;$('confirm-ok').disabled=true;$('confirm-cancel').disabled=true;try{await confirmAction();closeDialog($('confirm-dialog'));confirmAction=null}catch(error){showError('confirm-error',storageMessage(error))}finally{$('confirm-ok').disabled=false;$('confirm-cancel').disabled=false}});
 window.addEventListener('beforeinstallprompt',event=>{event.preventDefault();installPrompt=event;$('install-app').hidden=false});$('install-app').addEventListener('click',async()=>{if(!installPrompt)return;await installPrompt.prompt();await installPrompt.userChoice;installPrompt=null;$('install-app').hidden=true});window.addEventListener('appinstalled',()=>{$('install-app').hidden=true;$('install-state').textContent='The app is installed. Open it from your home screen or app list.'});$('update-button').addEventListener('click',()=>{if(document.querySelector('dialog[open]')||saving){toast('Save or close the open form before updating.');return}if(updateActivated){location.reload();return}waitingWorker?.postMessage({type:'SKIP_WAITING'})});
-try{channel=new BroadcastChannel(APP);channel.onmessage=()=>{if(ready)refresh().catch(()=>{})}}catch{}
-document.addEventListener('visibilitychange',()=>{if(!document.hidden&&ready){$('diary-date').max=today();refresh().catch(()=>showError('global-error','The diary could not be refreshed. Reload to try again.'))}});
-async function init(){
-  setReady();
-  const startupTimer=setTimeout(()=>showError('global-error','Still opening your saved diary. If this message stays here, close and reopen the app. Your saved entries have not been changed.'),10000);
-  try{
-    // Include first render in error handling: a browser compatibility error must
-    // never leave record buttons silently disabled.
-    renderDiary();renderChart();
-    $('entry-count').textContent='Opening diary…';
-    db=await openDb();
-    await refresh();ready=true;setReady();showError('global-error','');
-  }catch(error){
-    console.error(error);
-    showError('global-error','The diary could not finish opening in this browser. Your saved entries have not been changed. Close and reopen the app, then try again. If it still happens, update your browser.');
-    $('entry-count').textContent='Diary unavailable';$('diary-empty').hidden=true;
-  }finally{clearTimeout(startupTimer)}
+$('retry-storage').addEventListener('click',()=>{
+  if(refreshFlight)return;
+  initialiseLocalCopy();renderAvailable();refresh();
+});
+$('download-available').addEventListener('click',exportBackup);
+window.addEventListener('storage',event=>{if(event.key?.startsWith(JOURNAL_PREFIX)){renderAvailable();mirrorJournal()}});
+window.addEventListener('pagehide',suspendStorage);
+document.addEventListener('freeze',suspendStorage);
+window.addEventListener('pageshow',resumeStorage);
+document.addEventListener('resume',resumeStorage);
+document.addEventListener('visibilitychange',()=>{if(!document.hidden)resumeStorage()});
+function init(){
+  // Updates must remain available even if the diary database never responds.
   setupPWA();
+  try{initialiseLocalCopy(true);renderAvailable();connectChannel();refresh()}
+  catch(error){console.error(error);showError('global-error','The diary could not open. Your saved entries have not been cleared. Close all Chrome windows, restart your phone, then try again.')}
 }
 init();
 })();

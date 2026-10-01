@@ -26,11 +26,19 @@ The app works offline after the first complete load. No account or app-store dow
 
 ## Your data
 
-Diary entries are stored in IndexedDB in the browser on your device. The app does not upload entries, use analytics or synchronise between devices. This repository contains app code and icons only.
+Diary entries are stored in this browser on your device. Version 1.2 first saves each change atomically in a localStorage journal, then mirrors it to the existing IndexedDB diary. A last complete local copy helps recovery if the database becomes unavailable. The app does not upload entries, use analytics or synchronise between devices. This repository contains app code and icons only.
 
 Use **Backup & help → Download backup** regularly. Clearing browser data, using private browsing, changing browser or losing the device can lose the diary. Export before changing devices or app addresses, then restore the backup in the new location. CSV files are for sharing; JSON backups are for restoring.
 
 This app records what you enter. It provides no fluid targets or medical interpretation.
+
+## If the saved diary cannot open
+
+Open the app online to receive the update, then check **Backup & help** for Version 1.2. If an update button appears, close any entry form and tap **Update app**.
+
+If earlier entries remain unavailable, close the app and Chrome, restart the phone, reopen the app and tap **Retry opening diary**. Keep Chrome's site data in place; clearing it can remove the diary. Available entries can be downloaded while recovery is pending. Those downloads are explicitly marked incomplete, and full chart export is disabled until the earlier diary opens.
+
+New entries can still be recorded if the on-device journal is available. A save is confirmed only after that journal write succeeds. The app never deletes or recreates an existing diary database to recover from a timeout. Keep regular downloaded backups: the local copies all belong to the same browser/device.
 
 ## Development and hosting
 
