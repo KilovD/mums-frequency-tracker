@@ -13,12 +13,18 @@
 <link rel="apple-touch-icon" href="icon-192.png">
 <style>
 :root{color-scheme:light;--bg:#f6f5ef;--paper:#fffefa;--ink:#233e3a;--muted:#586b66;--teal:#176b62;--teal-dark:#10554e;--mint:#e5f0e9;--purple:#695484;--lavender:#eeeaf4;--line:#dce2d9;--danger:#a33232;--radius:22px;--shadow:0 8px 30px #203d3510;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:17px;line-height:1.5;background:var(--bg);color:var(--ink)}
-*{box-sizing:border-box}body{margin:0}button,input,select,textarea{font:inherit}button,a,input,select,textarea{-webkit-tap-highlight-color:transparent}button{cursor:pointer}button:disabled{opacity:.5;cursor:not-allowed}button{border:1px solid var(--line);border-radius:13px;min-height:48px;padding:10px 17px;background:var(--paper);color:var(--ink);font-weight:650;line-height:1.3}button:hover:not(:disabled){border-color:var(--teal);background:#edf3ec}button.primary{background:var(--teal);border-color:var(--teal);color:white}button.primary:hover:not(:disabled){background:var(--teal-dark)}button.danger{color:var(--danger);border-color:#dfbaba}button.quiet{border-color:transparent;background:transparent}button.small{padding:8px 13px}button[aria-pressed=true]{background:var(--teal);border-color:var(--teal);color:white}:focus-visible{outline:3px solid #bd7927;outline-offset:4px}a{color:var(--teal)}[hidden]{display:none!important}h1,h2,h3,p{margin-top:0}h1{font-family:Georgia,"Times New Roman",serif;font-size:clamp(1.8rem,4.7vw,2.55rem);line-height:1.14;font-weight:500;letter-spacing:-.045em;margin-bottom:0}h2{font-size:1.3rem;line-height:1.3;letter-spacing:-.025em;margin-bottom:10px}h3{font-size:1.05rem;margin-bottom:8px}p{margin-bottom:12px}.muted{color:var(--muted)}.eyebrow{text-transform:uppercase;font-size:.68rem;font-weight:750;letter-spacing:.16em;color:var(--teal);margin-bottom:9px}.small-text{font-size:.88rem}.shell{max-width:1040px;margin:auto;padding:32px 28px calc(35px + env(safe-area-inset-bottom))}.brand{display:flex;align-items:center;gap:17px;margin-bottom:25px}.brand-mark{width:55px;height:62px;flex-shrink:0;color:var(--teal)}.brand-copy{flex:1}.local-label{display:flex;align-items:center;gap:7px;font-size:.78rem;color:var(--muted);white-space:nowrap}.status-dot{width:7px;height:7px;border-radius:50%;background:var(--teal);display:inline-block}.tabs{display:flex;gap:7px;background:#e9ece3;border-radius:16px;padding:6px;margin-bottom:27px}.tabs button{flex:1;border:0;background:transparent;min-height:47px}.tabs button[aria-current=page]{background:var(--paper);box-shadow:0 2px 6px #263b3210;color:var(--teal)}.intro{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:17px}.intro p{margin:0}.actions{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:30px}.log-button{position:relative;display:flex;align-items:center;gap:20px;min-height:135px;text-align:left;border:0;border-radius:var(--radius);padding:25px;box-shadow:var(--shadow)}.log-button.drink{background:var(--teal);color:white}.log-button.drink:hover{background:var(--teal-dark)}.log-button.urine{background:var(--lavender);color:#483759}.log-button.urine:hover{background:#e3dced}.log-button svg{width:38px;height:44px;flex-shrink:0}.log-button strong{display:block;font-size:1.3rem;letter-spacing:-.025em}.log-button .sub{display:block;font-size:.86rem;font-weight:450;margin-top:5px}.log-button .plus{font-size:1.8rem;font-weight:300;margin-left:auto}.date-row{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:18px}.date-title h2{margin:0}.date-title span{display:block;color:var(--muted);font-size:.82rem;margin-top:2px}.date-controls{display:flex;align-items:center;gap:7px}.date-controls button.arrow{width:45px;min-height:45px;padding:0;font-size:1.3rem}.date-controls input{max-width:172px;min-height:45px;padding:7px 9px;font-size:.88rem}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:13px;margin-bottom:25px}.stat{border:1px solid var(--line);background:var(--paper);border-radius:18px;padding:18px 22px}.stat .label{font-size:.82rem;color:var(--muted);display:block;margin-bottom:5px}.stat .value{font-size:1.8rem;font-weight:650;letter-spacing:-.04em;line-height:1.15;font-variant-numeric:tabular-nums}.stat .unit{font-size:.85rem;font-weight:500;margin-left:5px;color:var(--muted)}.stat .caption{display:block;font-size:.73rem;color:var(--muted);margin-top:7px}.panel{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;margin-bottom:22px}.panel-pad{padding:24px}.panel-heading{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:20px 23px;border-bottom:1px solid var(--line)}.panel-heading h2{font-size:1.06rem;margin:0}.panel-heading span{font-size:.8rem;color:var(--muted)}.entries{list-style:none;margin:0;padding:0}.entry{display:grid;grid-template-columns:62px 40px 1fr auto auto;align-items:center;gap:14px;padding:17px 23px;border-bottom:1px solid var(--line)}.entry:last-child{border-bottom:0}.entry time{font-size:.91rem;font-variant-numeric:tabular-nums}.entry-icon{width:37px;height:37px;border-radius:50%;display:grid;place-items:center;background:var(--mint);color:var(--teal)}.entry-icon.out{background:var(--lavender);color:var(--purple)}.entry-icon svg{width:20px;height:22px}.entry-title{font-weight:650;font-size:.94rem}.entry-meta{font-size:.78rem;color:var(--muted);overflow-wrap:anywhere}.entry-amount{font-size:1.05rem;font-weight:650;white-space:nowrap}.entry-amount small{font-weight:400;font-size:.74rem}.entry .edit{font-size:.8rem;padding:9px 12px}.empty{text-align:center;padding:45px 24px}.empty .empty-icon{color:var(--teal);margin:0 auto 15px;width:35px;height:42px}.empty h3{font-size:1.08rem}.empty p{max-width:380px;margin:0 auto;color:var(--muted);font-size:.9rem}.footnote{font-size:.77rem;color:var(--muted);text-align:center;margin:24px 0 0}.section-head{margin-bottom:22px}.section-head p{color:var(--muted);font-size:.94rem;margin-bottom:0}.range-row{display:flex;flex-wrap:wrap;align-items:flex-end;gap:14px}.range-row label{flex:1;min-width:155px}.range-row button{flex:0}.toolbar{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}.chart-day{padding:22px 24px;border-bottom:1px solid var(--line);break-inside:avoid}.chart-day:last-child{border-bottom:0}.chart-day-title{display:flex;justify-content:space-between;gap:15px;align-items:baseline;margin-bottom:15px}.chart-day-title h3{margin:0;font-size:.95rem}.chart-day-title span{font-size:.77rem;color:var(--muted)}.plot{display:block;width:100%;height:auto;min-height:100px}.table-scroll{overflow:auto}table{border-collapse:collapse;width:100%;font-size:.83rem;text-align:left;white-space:nowrap}th{background:#f0f3ec;font-size:.73rem;color:var(--muted);font-weight:650}th,td{padding:13px 17px;border-bottom:1px solid var(--line)}tbody tr:last-child td{border-bottom:0}.num{text-align:right;font-variant-numeric:tabular-nums}td.note-cell{white-space:normal;min-width:120px;max-width:280px;overflow-wrap:anywhere}.legend{display:flex;align-items:center;gap:7px;font-size:.78rem;color:var(--muted);margin-top:12px}.legend-dot{background:var(--purple);width:10px;height:10px;border-radius:50%;display:inline-block}.settings-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}.settings-grid .panel{margin:0}.settings-grid p,.settings-grid li{font-size:.89rem;color:var(--muted)}.settings-grid ol{padding-left:23px;margin-bottom:0}.settings-grid li+li{margin-top:8px}.button-stack{display:grid;gap:10px;margin-top:20px}.notice{background:#fff4d8;border:1px solid #e5cb8e;border-radius:14px;padding:13px 17px;font-size:.86rem;margin-bottom:18px}.notice.error{background:#fff0ec;border-color:#dfa89b;color:#8a3028}.notice-row{display:flex;gap:14px;align-items:center;justify-content:space-between}.notice-row p{margin:0}.notice button{flex-shrink:0}.success{color:var(--teal)}label{display:block;font-weight:650;font-size:.9rem}input,select,textarea{display:block;width:100%;min-height:51px;padding:11px 13px;border:1px solid #afbcb2;border-radius:11px;background:white;color:var(--ink);margin-top:7px;min-width:0}textarea{resize:vertical;min-height:84px}input[type=file]{padding:10px}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:15px}.field{margin-bottom:20px}.hint{font-weight:400;font-size:.79rem;color:var(--muted);margin:7px 0 0}.amount-wrap{position:relative}.amount-wrap input{font-size:1.7rem;font-weight:600;padding-right:57px}.amount-wrap span{position:absolute;right:17px;top:18px;color:var(--muted)}.chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.chips button{flex:1;min-height:43px;padding:9px 8px;font-size:.85rem}.drink-options{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:9px}.drink-options button{min-height:49px;font-size:.86rem;padding:9px}.required-note{font-size:.77rem;color:var(--muted);margin-bottom:20px}dialog{border:0;border-radius:24px;max-width:510px;width:calc(100% - 28px);max-height:calc(100dvh - 32px);padding:0;box-shadow:0 24px 95px #18332e40;color:var(--ink);background:var(--paper)}dialog::backdrop{background:#19322e70;backdrop-filter:blur(3px)}.dialog-inner{padding:27px}.dialog-heading{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:8px}.dialog-heading h2{margin:0;font-family:Georgia,serif;font-weight:500;font-size:1.7rem;letter-spacing:-.03em}.close{width:45px;min-height:45px;padding:0;font-size:1.5rem}.dialog-actions{display:flex;gap:10px;margin-top:20px}.dialog-actions button{flex:1}.dialog-actions .primary{flex:2}.delete-row{border-top:1px solid var(--line);margin-top:20px;padding-top:14px;text-align:center}.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom));transform:translateX(-50%);z-index:10;background:#233e3a;color:white;padding:13px 22px;border-radius:15px;box-shadow:var(--shadow);max-width:calc(100% - 30px);width:max-content;font-size:.9rem;display:flex;align-items:center;gap:15px}.toast button{background:transparent;color:white;border-color:#9bb0a8;min-height:39px;padding:7px 12px}.print-heading{display:none}#storage-state{margin-top:13px}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+*{box-sizing:border-box}body{margin:0}button,input,select,textarea{font:inherit}button,a,input,select,textarea{-webkit-tap-highlight-color:transparent}button{cursor:pointer}button:disabled{opacity:.5;cursor:not-allowed}button{border:1px solid var(--line);border-radius:13px;min-height:48px;padding:10px 17px;background:var(--paper);color:var(--ink);font-weight:650;line-height:1.3}button:hover:not(:disabled){border-color:var(--teal);background:#edf3ec}button.primary{background:var(--teal);border-color:var(--teal);color:white}button.primary:hover:not(:disabled){background:var(--teal-dark)}button.danger{color:var(--danger);border-color:#dfbaba}button.quiet{border-color:transparent;background:transparent}button.small{padding:8px 13px}button[aria-pressed=true]{background:var(--teal);border-color:var(--teal);color:white}:focus-visible{outline:3px solid #bd7927;outline-offset:4px}a{color:var(--teal)}[hidden]{display:none!important}h1,h2,h3,p{margin-top:0}h1{font-family:Georgia,"Times New Roman",serif;font-size:clamp(1.8rem,4.7vw,2.55rem);line-height:1.14;font-weight:500;letter-spacing:-.045em;margin-bottom:0}h2{font-size:1.3rem;line-height:1.3;letter-spacing:-.025em;margin-bottom:10px}h3{font-size:1.05rem;margin-bottom:8px}p{margin-bottom:12px}.muted{color:var(--muted)}.eyebrow{text-transform:uppercase;font-size:.68rem;font-weight:750;letter-spacing:.16em;color:var(--teal);margin-bottom:9px}.small-text{font-size:.88rem}.shell{max-width:1040px;margin:auto;padding:32px 28px calc(35px + env(safe-area-inset-bottom))}.brand{display:flex;align-items:center;gap:17px;margin-bottom:25px}.brand-mark{width:55px;height:62px;flex-shrink:0;color:var(--teal)}.brand-copy{flex:1}.local-label{display:flex;align-items:center;gap:7px;font-size:.78rem;color:var(--muted);white-space:nowrap}.status-dot{width:7px;height:7px;border-radius:50%;background:var(--teal);display:inline-block}.tabs{display:flex;gap:7px;background:#e9ece3;border-radius:16px;padding:6px;margin-bottom:27px}.tabs button{flex:1;border:0;background:transparent;min-height:47px}.tabs button[aria-current=page]{background:var(--paper);box-shadow:0 2px 6px #263b3210;color:var(--teal)}.intro{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:17px}.intro p{margin:0}.actions{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:30px}.log-button{position:relative;display:flex;align-items:center;gap:20px;min-height:135px;text-align:left;border:0;border-radius:var(--radius);padding:25px;box-shadow:var(--shadow)}.log-button.drink{background:var(--teal);color:white}.log-button.drink:hover:not(:disabled){background:var(--teal-dark)}.log-button.urine{background:var(--lavender);color:#483759}.log-button.urine:hover:not(:disabled){background:#e3dced}.log-button svg{width:38px;height:44px;flex-shrink:0}.log-button strong{display:block;font-size:1.3rem;letter-spacing:-.025em}.log-button .sub{display:block;font-size:.86rem;font-weight:450;margin-top:5px}.log-button .plus{font-size:1.8rem;font-weight:300;margin-left:auto}.date-row{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:18px}.date-title h2{margin:0}.date-title span{display:block;color:var(--muted);font-size:.82rem;margin-top:2px}.date-controls{display:flex;align-items:center;gap:7px}.date-controls button.arrow{width:45px;min-height:45px;padding:0;font-size:1.3rem}.date-controls input{max-width:172px;min-height:45px;padding:7px 9px;font-size:.88rem}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:13px;margin-bottom:25px}.stat{border:1px solid var(--line);background:var(--paper);border-radius:18px;padding:18px 22px}.stat .label{font-size:.82rem;color:var(--muted);display:block;margin-bottom:5px}.stat .value{font-size:1.8rem;font-weight:650;letter-spacing:-.04em;line-height:1.15;font-variant-numeric:tabular-nums}.stat .unit{font-size:.85rem;font-weight:500;margin-left:5px;color:var(--muted)}.stat .caption{display:block;font-size:.73rem;color:var(--muted);margin-top:7px}.panel{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;margin-bottom:22px}.panel-pad{padding:24px}.panel-heading{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:20px 23px;border-bottom:1px solid var(--line)}.panel-heading h2{font-size:1.06rem;margin:0}.panel-heading span{font-size:.8rem;color:var(--muted)}.entries{list-style:none;margin:0;padding:0}.entry{display:grid;grid-template-columns:62px 40px 1fr auto auto;align-items:center;gap:14px;padding:17px 23px;border-bottom:1px solid var(--line)}.entry:last-child{border-bottom:0}.entry time{font-size:.91rem;font-variant-numeric:tabular-nums}.entry-icon{width:37px;height:37px;border-radius:50%;display:grid;place-items:center;background:var(--mint);color:var(--teal)}.entry-icon.out{background:var(--lavender);color:var(--purple)}.entry-icon svg{width:20px;height:22px}.entry-title{font-weight:650;font-size:.94rem}.entry-meta{font-size:.78rem;color:var(--muted);overflow-wrap:anywhere}.entry-amount{font-size:1.05rem;font-weight:650;white-space:nowrap}.entry-amount small{font-weight:400;font-size:.74rem}.entry .edit{font-size:.8rem;padding:9px 12px}.empty{text-align:center;padding:45px 24px}.empty .empty-icon{color:var(--teal);margin:0 auto 15px;width:35px;height:42px}.empty h3{font-size:1.08rem}.empty p{max-width:380px;margin:0 auto;color:var(--muted);font-size:.9rem}.footnote{font-size:.77rem;color:var(--muted);text-align:center;margin:24px 0 0}.section-head{margin-bottom:22px}.section-head p{color:var(--muted);font-size:.94rem;margin-bottom:0}.range-row{display:flex;flex-wrap:wrap;align-items:flex-end;gap:14px}.range-row label{flex:1;min-width:155px}.range-row button{flex:0}.toolbar{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}.chart-day{padding:22px 24px;border-bottom:1px solid var(--line);break-inside:avoid}.chart-day:last-child{border-bottom:0}.chart-day-title{display:flex;justify-content:space-between;gap:15px;align-items:baseline;margin-bottom:15px}.chart-day-title h3{margin:0;font-size:.95rem}.chart-day-title span{font-size:.77rem;color:var(--muted)}.plot{display:block;width:100%;height:auto;min-height:100px}.table-scroll{overflow:auto}table{border-collapse:collapse;width:100%;font-size:.83rem;text-align:left;white-space:nowrap}th{background:#f0f3ec;font-size:.73rem;color:var(--muted);font-weight:650}th,td{padding:13px 17px;border-bottom:1px solid var(--line)}tbody tr:last-child td{border-bottom:0}.num{text-align:right;font-variant-numeric:tabular-nums}td.note-cell{white-space:normal;min-width:120px;max-width:280px;overflow-wrap:anywhere}.legend{display:flex;align-items:center;gap:7px;font-size:.78rem;color:var(--muted);margin-top:12px}.legend-dot{background:var(--purple);width:10px;height:10px;border-radius:50%;display:inline-block}.settings-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}.settings-grid .panel{margin:0}.settings-grid p,.settings-grid li{font-size:.89rem;color:var(--muted)}.settings-grid ol{padding-left:23px;margin-bottom:0}.settings-grid li+li{margin-top:8px}.button-stack{display:grid;gap:10px;margin-top:20px}.notice{background:#fff4d8;border:1px solid #e5cb8e;border-radius:14px;padding:13px 17px;font-size:.86rem;margin-bottom:18px}.notice.error{background:#fff0ec;border-color:#dfa89b;color:#8a3028}.notice-row{display:flex;gap:14px;align-items:center;justify-content:space-between}.notice-row p{margin:0}.notice button{flex-shrink:0}.success{color:var(--teal)}label{display:block;font-weight:650;font-size:.9rem}input,select,textarea{display:block;width:100%;min-height:51px;padding:11px 13px;border:1px solid #afbcb2;border-radius:11px;background:white;color:var(--ink);margin-top:7px;min-width:0}textarea{resize:vertical;min-height:84px}input[type=file]{padding:10px}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:15px}.field{margin-bottom:20px}.hint{font-weight:400;font-size:.79rem;color:var(--muted);margin:7px 0 0}.amount-wrap{position:relative}.amount-wrap input{font-size:1.7rem;font-weight:600;padding-right:57px}.amount-wrap span{position:absolute;right:17px;top:18px;color:var(--muted)}.chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.chips button{flex:1;min-height:43px;padding:9px 8px;font-size:.85rem}.drink-options{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:9px}.drink-options button{min-height:49px;font-size:.86rem;padding:9px}.required-note{font-size:.77rem;color:var(--muted);margin-bottom:20px}dialog{border:0;border-radius:24px;max-width:510px;width:calc(100% - 28px);max-height:calc(100vh - 32px);max-height:calc(100dvh - 32px);padding:0;box-shadow:0 24px 95px #18332e40;color:var(--ink);background:var(--paper)}dialog::backdrop{background:#19322e70;backdrop-filter:blur(3px)}.dialog-inner{padding:27px}.dialog-heading{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:8px}.dialog-heading h2{margin:0;font-family:Georgia,serif;font-weight:500;font-size:1.7rem;letter-spacing:-.03em}.close{width:45px;min-height:45px;padding:0;font-size:1.5rem}.dialog-actions{display:flex;gap:10px;margin-top:20px}.dialog-actions button{flex:1}.dialog-actions .primary{flex:2}.delete-row{border-top:1px solid var(--line);margin-top:20px;padding-top:14px;text-align:center}.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom));transform:translateX(-50%);z-index:10;background:#233e3a;color:white;padding:13px 22px;border-radius:15px;box-shadow:var(--shadow);max-width:calc(100% - 30px);width:max-content;font-size:.9rem;display:flex;align-items:center;gap:15px}.toast button{background:transparent;color:white;border-color:#9bb0a8;min-height:39px;padding:7px 12px}.print-heading{display:none}#storage-state{margin-top:13px}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 @media(max-width:650px){.shell{padding:24px 16px calc(28px + env(safe-area-inset-bottom))}.brand{gap:12px;margin-bottom:24px}.brand-mark{width:39px;height:49px}.brand .local-label{display:none}.tabs{margin-bottom:23px}.tabs button{font-size:.88rem;padding:9px 5px}.intro{margin-bottom:14px}.intro h2{font-size:1.17rem}.intro p{font-size:.78rem}.actions{gap:11px;margin-bottom:25px}.log-button{display:block;padding:19px;min-height:162px}.log-button svg{width:29px;height:34px;margin-bottom:8px}.log-button strong{font-size:1.15rem}.log-button .sub{font-size:.77rem;line-height:1.4}.log-button .plus{position:absolute;right:16px;top:15px;font-size:1.6rem}.date-row{flex-wrap:wrap;gap:12px}.date-title h2{font-size:1.16rem}.date-title span{font-size:.76rem}.date-controls{width:100%}.date-controls input{max-width:none;flex:1}.date-controls .today-button{font-size:.8rem}.stats{gap:8px}.stat{padding:14px 11px;border-radius:15px}.stat .label{font-size:.74rem}.stat .value{font-size:1.5rem}.stat .unit{font-size:.7rem;margin-left:3px}.stat .caption{font-size:.68rem}.panel-heading{padding:17px}.panel-heading h2{font-size:.97rem}.entry{grid-template-columns:49px 31px 1fr auto;gap:9px;padding:16px}.entry time{font-size:.79rem}.entry-icon{width:29px;height:29px}.entry-icon svg{width:17px;height:19px}.entry-title{font-size:.88rem}.entry-amount{font-size:.98rem}.entry .edit{grid-column:4;grid-row:auto;min-height:35px;font-size:.73rem;padding:5px 9px;margin-top:-5px}.entry-meta{font-size:.74rem}.entry .entry-description{grid-row:span 2}.entry time,.entry-icon{align-self:start;padding-top:3px}.entry-icon{padding:0}.entry-amount{align-self:start}.settings-grid{grid-template-columns:1fr}.panel-pad{padding:20px}.chart-day{padding:18px 12px}.chart-day-title{gap:8px;padding:0 5px}.chart-day-title span{font-size:.71rem}.chart-day-title h3{font-size:.83rem}.dialog-inner{padding:23px 20px}.toolbar button{flex:1;font-size:.83rem}.range-row{gap:12px}.range-row label{min-width:120px}.range-row button{width:100%}.notice-row{align-items:flex-start;flex-direction:column}.table-scroll{border-radius:0}.footnote{font-size:.71rem}.plot{min-height:120px}}
 @media(prefers-reduced-motion:no-preference){button{transition:background .15s,border-color .15s}.toast{animation:appear .18s ease-out}@keyframes appear{from{opacity:0;bottom:15px}to{opacity:1}}}
 @media print{body{background:white;color:#172d29;font-size:11pt}.shell{max-width:none;padding:0}.brand,.tabs,#diary-view,#settings-view,.no-print,.toast,dialog,.footnote,#global-error,#update-notice{display:none!important}#chart-view{display:block!important}.print-heading{display:block;margin-bottom:20px}.print-heading h1{font-size:23pt}.section-head{display:none}.panel{border-color:#aaa;border-radius:0;box-shadow:none;margin-bottom:18px;overflow:visible}.panel-heading{padding:10px 12px}.chart-day{padding:12px 15px}.chart-day svg{max-height:130px}.table-scroll{overflow:visible}table{font-size:9pt;white-space:normal}th,td{padding:8px;border-color:#bbb}thead{display:table-header-group}tr{break-inside:avoid}td.note-cell{min-width:0;max-width:170px}button{display:none!important}.legend{margin:8px}.print-caption{font-size:9pt;color:#444}.chart-day-title{margin-bottom:4px}.chart-day-title h3{font-size:10pt}.chart-day-title span{font-size:9pt}@page{size:auto;margin:15mm}}
 .entry-description{min-width:0}.entry-title{overflow-wrap:anywhere}.entry{grid-template-columns:62px 40px minmax(0,1fr) auto auto}
 @media(max-width:650px){.entry{grid-template-columns:49px 31px minmax(0,1fr) auto}.entry .edit{min-height:44px}.range-row button{flex:1 0 100%}}
+
+dialog:not([open]){display:none}
+.modal-backdrop{position:fixed;top:0;right:0;bottom:0;left:0;background:#19322e70;z-index:1000;touch-action:none}
+dialog.fallback-modal[open]{display:block;position:fixed;top:16px;left:50%;right:auto;bottom:auto;transform:translateX(-50%);margin:0;overflow:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;max-height:calc(100vh - 32px);max-height:calc(100dvh - 32px)}
+dialog.fallback-modal[open]{top:calc(var(--modal-viewport-top,0px) + 16px);max-height:calc(var(--modal-viewport-height,100vh) - 32px)}
+@media print{.modal-backdrop{display:none!important}}
 </style>
 </head>
 <body>
@@ -50,11 +56,11 @@
 <div class="settings-grid"><div class="panel panel-pad"><h3>Your entries stay on this device</h3><p>Records are saved in this browser. They are not sent to a server or shared between your phone and computer.</p><p>Clearing browser data or using private browsing can lose your diary. Download a backup regularly and before changing devices or web addresses.</p><div class="button-stack"><button id="export-backup" class="primary">Download backup</button><button id="import-backup">Restore from backup</button><button id="protect-storage">Protect device storage</button></div><p id="storage-state" class="small-text muted"></p><p id="backup-info" class="hint"></p></div>
 <div class="panel panel-pad"><h3>Add to your home screen</h3><p id="install-state">Install the app for easy access. Open it online once to prepare it for offline use.</p><button id="install-app" class="primary" hidden>Install app</button><ol><li><strong>iPhone / iPad:</strong> open the hosted app in Safari, tap Share, then Add to Home Screen.</li><li><strong>Android:</strong> open it in Chrome and choose Install app or Add to Home screen from the menu.</li><li><strong>Computer:</strong> use the install icon in Chrome or Edge’s address bar when available.</li></ol><p id="offline-state" class="hint" style="margin-top:16px"></p></div>
 <div class="panel panel-pad"><h3>Making an entry</h3><p>Tap one of the two large buttons. The time is captured when you tap, so you can take your time entering the amount.</p><p>For a drink, choose the drink type and enter the amount in millilitres (mL). For urination, enter the amount measured. The shortcut amounts are optional; you can type any whole amount.</p><p>Use Edit beside an entry to change or delete it. Dates and times stay as recorded, even if you travel.</p></div>
-<div class="panel panel-pad"><h3>Sharing a chart</h3><p>Open Frequency chart and choose your dates. Export CSV creates a spreadsheet-friendly diary. Print / save PDF opens your device’s print options.</p><p>This is a record of what you enter, with no fluid targets or medical interpretation. Bring the chart to an appointment if it is helpful.</p><p class="small-text">Version 1.0 · Made for Mum</p></div></div>
+<div class="panel panel-pad"><h3>Sharing a chart</h3><p>Open Frequency chart and choose your dates. Export CSV creates a spreadsheet-friendly diary. Print / save PDF opens your device’s print options.</p><p>This is a record of what you enter, with no fluid targets or medical interpretation. Bring the chart to an appointment if it is helpful.</p><p class="small-text">Version 1.1 · Made for Mum</p></div></div>
 </section>
 </main>
 </div>
-<dialog id="entry-dialog" aria-labelledby="entry-dialog-title"><div class="dialog-inner"><div class="dialog-heading"><h2 id="entry-dialog-title">Add a drink</h2><button class="quiet close" id="close-entry" aria-label="Close entry">×</button></div><p class="required-note">Date, time and amount are required.</p><form id="entry-form"><div class="form-grid field"><label>Date<input id="entry-date" type="date" required></label><label>Time<input id="entry-time" type="time" required></label></div><div id="drink-field" class="field"><label id="drink-label">What did you drink?</label><div id="drink-options" class="drink-options" role="group" aria-labelledby="drink-label"></div><label id="other-drink-label" style="margin-top:12px" hidden>Drink name<input id="other-drink" type="text" maxlength="60" autocomplete="off" placeholder="e.g. herbal tea"></label></div><div class="field"><label id="amount-label" for="entry-amount">Amount in</label><div class="amount-wrap"><input id="entry-amount" type="number" inputmode="numeric" min="1" max="10000" step="1" required placeholder="0"><span>mL</span></div><div id="amount-shortcuts" class="chips" aria-label="Amount shortcuts"><button type="button" data-amount="100">100 mL</button><button type="button" data-amount="150">150 mL</button><button type="button" data-amount="200">200 mL</button><button type="button" data-amount="250">250 mL</button></div></div><label class="field">Notes <span class="muted" style="font-weight:400">(optional)</span><textarea id="entry-note" maxlength="500" rows="2" placeholder="Anything you would like to remember"></textarea></label><p id="entry-error" class="notice error" role="alert" hidden></p><div class="dialog-actions"><button type="button" id="cancel-entry">Cancel</button><button id="save-entry" type="submit" class="primary">Save drink</button></div><div id="delete-row" class="delete-row" hidden><button type="button" id="delete-entry" class="quiet danger">Delete this entry</button></div></form></div></dialog>
+<dialog id="entry-dialog" aria-labelledby="entry-dialog-title"><div class="dialog-inner"><div class="dialog-heading"><h2 id="entry-dialog-title">Add a drink</h2><button class="quiet close" id="close-entry" aria-label="Close entry">×</button></div><p class="required-note">Date, time and amount are required.</p><form id="entry-form" novalidate><div class="form-grid field"><label>Date<input id="entry-date" type="date" required></label><label>Time<input id="entry-time" type="time" required></label></div><div id="drink-field" class="field"><label id="drink-label">What did you drink?</label><div id="drink-options" class="drink-options" role="group" aria-labelledby="drink-label"></div><label id="other-drink-label" style="margin-top:12px" hidden>Drink name<input id="other-drink" type="text" maxlength="60" autocomplete="off" placeholder="e.g. herbal tea"></label></div><div class="field"><label id="amount-label" for="entry-amount">Amount in</label><div class="amount-wrap"><input id="entry-amount" type="number" inputmode="numeric" min="1" max="10000" step="1" required placeholder="0"><span>mL</span></div><div id="amount-shortcuts" class="chips" aria-label="Amount shortcuts"><button type="button" data-amount="100">100 mL</button><button type="button" data-amount="150">150 mL</button><button type="button" data-amount="200">200 mL</button><button type="button" data-amount="250">250 mL</button></div></div><label class="field">Notes <span class="muted" style="font-weight:400">(optional)</span><textarea id="entry-note" maxlength="500" rows="2" placeholder="Anything you would like to remember"></textarea></label><p id="entry-error" class="notice error" role="alert" hidden></p><div class="dialog-actions"><button type="button" id="cancel-entry">Cancel</button><button id="save-entry" type="submit" class="primary">Save drink</button></div><div id="delete-row" class="delete-row" hidden><button type="button" id="delete-entry" class="quiet danger">Delete this entry</button></div></form></div></dialog>
 <dialog id="confirm-dialog" aria-labelledby="confirm-title"><div class="dialog-inner"><h2 id="confirm-title"></h2><p id="confirm-message"></p><p id="confirm-error" class="notice error" role="alert" hidden></p><div class="dialog-actions"><button id="confirm-cancel">Cancel</button><button id="confirm-ok" class="primary">Confirm</button></div></div></dialog>
 <input id="backup-file" type="file" accept=".json,application/json" hidden>
 <div id="toast" class="toast" role="status" hidden><span id="toast-message"></span><button id="toast-undo" hidden>Undo</button></div>
@@ -77,6 +83,167 @@ const uid=()=>globalThis.crypto?.randomUUID?.() || `${Date.now().toString(36)}-$
 const sortEntries=(a,b)=>a.localDate.localeCompare(b.localDate)||a.localTime.localeCompare(b.localTime)||a.timestamp.localeCompare(b.timestamp)||a.id.localeCompare(b.id);
 let db,entries=[],ready=false,selectedDate=today(),activeView='diary',rangeStart=shiftDay(today(),-2),rangeEnd=today(),editing=null,entryKind='drink',drinkChoice='',captured=null,saving=false,toastTimer,confirmAction=null,installPrompt=null,waitingWorker=null,updateActivated=false,channel=null;
 function node(tag,attrs={},...children){const x=document.createElement(tag);for(const [k,v] of Object.entries(attrs)){if(k==='class')x.className=v;else x.setAttribute(k,v)}for(const child of children.flat()){if(child!==null&&child!==undefined)x.append(child instanceof Node?child:document.createTextNode(String(child)))}return x}
+// Keep core recording available on browsers without newer DOM/dialog methods.
+function replaceContent(target,...children){
+  const fragment=document.createDocumentFragment();
+  for(const child of children)fragment.appendChild(child instanceof Node?child:document.createTextNode(String(child)));
+  while(target.firstChild)target.removeChild(target.firstChild);
+  target.appendChild(fragment);
+}
+const modalStack=[];
+const modalBackdrop=node('div',{id:'modal-backdrop',class:'modal-backdrop',hidden:''});
+document.body.appendChild(modalBackdrop);
+// Android's keyboard can shrink only the visual viewport, leaving vh/dvh
+// unchanged. Size the overlay to the actually visible area so Save is reachable.
+function syncModalViewport(){
+  const viewport=window.visualViewport;
+  document.documentElement.style.setProperty('--modal-viewport-height',`${viewport?viewport.height:window.innerHeight}px`);
+  document.documentElement.style.setProperty('--modal-viewport-top',`${viewport?viewport.offsetTop:0}px`);
+}
+syncModalViewport();
+window.addEventListener('resize',syncModalViewport);
+window.visualViewport?.addEventListener('resize',syncModalViewport);
+window.visualViewport?.addEventListener('scroll',syncModalViewport);
+let pageModalState=null;
+const modalHistoryToken=uid();
+let modalHistoryOwned=false,modalHistoryPending=false,modalHistoryAvailable=true;
+function syncModalHistory(active){
+  if(!modalHistoryAvailable||modalHistoryPending)return;
+  try{
+    if(active&&!modalHistoryOwned){
+      history.pushState({...history.state,mftDialog:modalHistoryToken},'');
+      modalHistoryOwned=true;
+    }else if(!active&&modalHistoryOwned){
+      modalHistoryOwned=false;
+      if(history.state?.mftDialog===modalHistoryToken){modalHistoryPending=true;history.back()}
+    }
+  }catch(error){modalHistoryAvailable=false}
+}
+window.addEventListener('popstate',()=>{
+  // All nested overlays share one history marker. Android Back cancels the
+  // top overlay; if its parent remains, put the marker back for the next Back.
+  if(modalHistoryPending){modalHistoryPending=false;modalHistoryOwned=false;syncModalFallback();return}
+  modalHistoryOwned=false;
+  const top=modalStack[modalStack.length-1];
+  if(top?.fallback){
+    if(top.dialog.dispatchEvent(new Event('cancel',{cancelable:true})))closeDialog(top.dialog);
+    else syncModalFallback();
+  }else if(history.state?.mftDialog===modalHistoryToken){
+    const state={...history.state};delete state.mftDialog;history.replaceState(state,'');
+  }
+});
+function syncModalFallback(){
+  const fallback=modalStack.filter(item=>item.fallback);
+  const shell=document.querySelector('.shell');
+  if(fallback.length){
+    if(!pageModalState){
+      pageModalState={ariaHidden:shell.getAttribute('aria-hidden'),overflow:document.body.style.overflow};
+      shell.setAttribute('aria-hidden','true');
+      document.body.style.overflow='hidden';
+    }
+    modalBackdrop.hidden=false;
+    modalBackdrop.style.zIndex=1000+2*(modalStack.length-1);
+    modalStack.forEach((item,index)=>{
+      if(!item.fallback)return;
+      item.dialog.style.zIndex=1001+2*index;
+      item.dialog.setAttribute('aria-modal','true');
+      if(index===modalStack.length-1)item.dialog.removeAttribute('aria-hidden');
+      else item.dialog.setAttribute('aria-hidden','true');
+    });
+  }else{
+    modalBackdrop.hidden=true;
+    if(pageModalState){
+      if(pageModalState.ariaHidden===null)shell.removeAttribute('aria-hidden');
+      else shell.setAttribute('aria-hidden',pageModalState.ariaHidden);
+      document.body.style.overflow=pageModalState.overflow;
+      pageModalState=null;
+    }
+  }
+  syncModalHistory(fallback.length>0);
+}
+function modalFocusables(dialog){
+  return Array.from(dialog.querySelectorAll('button,input,select,textarea,a[href],[tabindex]'))
+    .filter(el=>!el.disabled&&el.tabIndex>=0&&el.getClientRects().length);
+}
+function openDialog(dialog){
+  if(modalStack.some(item=>item.dialog===dialog))return;
+  const item={dialog,previousFocus:document.activeElement,fallback:false};
+  dialog.setAttribute('role','dialog');
+  dialog.setAttribute('tabindex','-1');
+  let opened=false;
+  // Touch devices use an ordinary fixed overlay in both browser and installed mode.
+  // This avoids native top-layer/virtual-keyboard differences between the two.
+  const touchLayout=window.matchMedia('(pointer: coarse)').matches;
+  if(!touchLayout&&!modalStack.some(entry=>entry.fallback)&&typeof dialog.showModal==='function'){
+    try{dialog.showModal();opened=true}catch(error){console.warn('Using compatible entry window',error)}
+  }
+  if(!opened){
+    // If a nested native dialog fails, move its parent to the same overlay layer.
+    for(const entry of modalStack){
+      if(!entry.fallback){
+        if(typeof entry.dialog.close==='function')entry.dialog.close();
+        entry.fallback=true;
+        entry.dialog.classList.add('fallback-modal');
+        entry.dialog.setAttribute('open','');
+      }
+    }
+    item.fallback=true;
+    dialog.classList.add('fallback-modal');
+    dialog.setAttribute('open','');
+  }
+  modalStack.push(item);
+  syncModalFallback();
+}
+function forgetDialog(dialog){
+  const index=modalStack.findIndex(item=>item.dialog===dialog);
+  if(index<0)return;
+  const wasTop=index===modalStack.length-1;
+  const [item]=modalStack.splice(index,1);
+  dialog.classList.remove('fallback-modal');
+  dialog.style.removeProperty('z-index');
+  dialog.removeAttribute('aria-hidden');
+  dialog.removeAttribute('aria-modal');
+  syncModalFallback();
+  if(item.fallback&&wasTop){
+    const top=modalStack[modalStack.length-1];
+    const target=top?(top.dialog.contains(item.previousFocus)?item.previousFocus:modalFocusables(top.dialog)[0]||top.dialog):item.previousFocus;
+    if(target&&target.isConnected&&target.getClientRects().length)target.focus();
+  }
+}
+function closeDialog(dialog){
+  const item=modalStack.find(entry=>entry.dialog===dialog);
+  if(item?.fallback||typeof dialog.close!=='function'){
+    dialog.removeAttribute('open');
+    forgetDialog(dialog);
+    dialog.dispatchEvent(new Event('close'));
+  }else{
+    dialog.close();
+    forgetDialog(dialog);
+  }
+}
+document.querySelectorAll('dialog').forEach(dialog=>{
+  dialog.addEventListener('close',()=>{if(!dialog.hasAttribute('open'))forgetDialog(dialog)});
+});
+document.addEventListener('keydown',event=>{
+  const top=modalStack[modalStack.length-1];
+  if(!top?.fallback)return;
+  if(event.key==='Escape'){
+    event.preventDefault();
+    if(top.dialog.dispatchEvent(new Event('cancel',{cancelable:true})))closeDialog(top.dialog);
+  }else if(event.key==='Tab'){
+    const focusable=modalFocusables(top.dialog);
+    const current=focusable.indexOf(document.activeElement);
+    event.preventDefault();
+    if(!focusable.length){top.dialog.focus();return}
+    const next=current<0?(event.shiftKey?focusable.length-1:0):(current+(event.shiftKey?-1:1)+focusable.length)%focusable.length;
+    focusable[next].focus();
+  }
+});
+document.addEventListener('focusin',event=>{
+  const top=modalStack[modalStack.length-1];
+  if(top?.fallback&&!top.dialog.contains(event.target))(modalFocusables(top.dialog)[0]||top.dialog).focus();
+});
+
 function icon(type,cls=''){const svg=document.createElementNS('http://www.w3.org/2000/svg','svg');svg.setAttribute('aria-hidden','true');if(cls)svg.setAttribute('class',cls);const use=document.createElementNS(svg.namespaceURI,'use');use.setAttribute('href',type==='drink'?'#cup':'#drop');svg.append(use);return svg}
 function showError(id,message){$(id).textContent=message;$(id).hidden=!message}
 function storageMessage(error){console.error(error);return 'Your entry could not be saved. Device storage may be full or unavailable. Keep this form open, free some space, then try again.'}
@@ -89,7 +256,7 @@ async function refresh(){entries=await readEntries();entries.sort(sortEntries);r
 function setReady(){$('add-drink').disabled=!ready;$('add-urine').disabled=!ready;$('import-backup').disabled=!ready;$('export-backup').disabled=!ready}
 async function changed(){try{await refresh();channel?.postMessage('changed')}catch(error){ready=false;setReady();showError('global-error','The change was saved, but the diary could not be refreshed. Reload this page to see it.')}}
 function totals(list){const drinks=list.filter(e=>e.kind==='drink'),voids=list.filter(e=>e.kind==='urine');const volume=voids.reduce((n,e)=>n+e.amount,0);return{intake:drinks.reduce((n,e)=>n+e.amount,0),output:volume,drinks:drinks.length,visits:voids.length,average:voids.length?Math.round(volume/voids.length):null,largest:voids.length?voids.reduce((highest,e)=>Math.max(highest,e.amount),0):null}}
-function renderDiary(){const list=entries.filter(e=>e.localDate===selectedDate);const t=totals(list);$('diary-date').value=selectedDate;$('day-title').textContent=selectedDate===today()?'Today':selectedDate===shiftDay(today(),-1)?'Yesterday':parseDay(selectedDate).toLocaleDateString('en-AU',{weekday:'long'});$('day-subtitle').textContent=formatDay(selectedDate);$('total-in').textContent=num(t.intake);$('total-out').textContent=num(t.output);$('drink-count').textContent=`${t.drinks} ${t.drinks===1?'drink':'drinks'} recorded`;$('void-count').textContent=t.visits;$('entry-count').textContent=`${list.length} ${list.length===1?'entry':'entries'}`;$('diary-empty').hidden=list.length>0;$('next-day').disabled=selectedDate>=today();$('go-today').disabled=selectedDate===today();$('entry-list').replaceChildren(...list.slice().reverse().map(e=>{const button=node('button',{class:'edit','aria-label':`Edit ${e.kind==='drink'?e.drink:'urination'} at ${e.localTime}`},'Edit');button.addEventListener('click',()=>openEntry(e.kind,e));return node('li',{class:'entry'},node('time',{datetime:`${e.localDate}T${e.localTime}`},e.localTime),node('span',{class:'entry-icon'+(e.kind==='urine'?' out':'')},icon(e.kind)),node('div',{class:'entry-description'},node('div',{class:'entry-title'},e.kind==='drink'?e.drink:'Urination'),node('div',{class:'entry-meta'},e.note||(e.kind==='drink'?'Fluid in':'Fluid out'))),node('div',{class:'entry-amount'},num(e.amount),' ',node('small',{},'mL')),button)}))}
+function renderDiary(){const list=entries.filter(e=>e.localDate===selectedDate);const t=totals(list);$('diary-date').value=selectedDate;$('day-title').textContent=selectedDate===today()?'Today':selectedDate===shiftDay(today(),-1)?'Yesterday':parseDay(selectedDate).toLocaleDateString('en-AU',{weekday:'long'});$('day-subtitle').textContent=formatDay(selectedDate);$('total-in').textContent=num(t.intake);$('total-out').textContent=num(t.output);$('drink-count').textContent=`${t.drinks} ${t.drinks===1?'drink':'drinks'} recorded`;$('void-count').textContent=t.visits;$('entry-count').textContent=`${list.length} ${list.length===1?'entry':'entries'}`;$('diary-empty').hidden=list.length>0;$('next-day').disabled=selectedDate>=today();$('go-today').disabled=selectedDate===today();replaceContent($('entry-list'),...list.slice().reverse().map(e=>{const button=node('button',{class:'edit','aria-label':`Edit ${e.kind==='drink'?e.drink:'urination'} at ${e.localTime}`},'Edit');button.addEventListener('click',()=>openEntry(e.kind,e));return node('li',{class:'entry'},node('time',{datetime:`${e.localDate}T${e.localTime}`},e.localTime),node('span',{class:'entry-icon'+(e.kind==='urine'?' out':'')},icon(e.kind)),node('div',{class:'entry-description'},node('div',{class:'entry-title'},e.kind==='drink'?e.drink:'Urination'),node('div',{class:'entry-meta'},e.note||(e.kind==='drink'?'Fluid in':'Fluid out'))),node('div',{class:'entry-amount'},num(e.amount),' ',node('small',{},'mL')),button)}))}
 function selectDay(day){if(!validDay(day))return;selectedDate=day;renderDiary()}
 function datesInRange(){let days=[],d=rangeStart;while(d<=rangeEnd&&days.length<31){days.push(d);d=shiftDay(d,1)}return days}
 function rangeEntries(){return entries.filter(e=>e.localDate>=rangeStart&&e.localDate<=rangeEnd)}
@@ -100,28 +267,30 @@ function renderChart(){
   $('range-label').textContent=`${days.length} ${days.length===1?'day':'days'}`;
   $('print-range').textContent=`${formatDay(rangeStart)} – ${formatDay(rangeEnd)}`;
   $('chart-entry-count').textContent=`${list.length} entries`;
-  $('summary-rows').replaceChildren(...days.map(d=>{
+  replaceContent($('summary-rows'),...days.map(d=>{
     const dayEntries=list.filter(e=>e.localDate===d),t=totals(dayEntries);
     const values=[dayEntries.length?num(t.intake):'—',dayEntries.length?num(t.output):'—',dayEntries.length?t.visits:'—',t.average===null?'—':num(t.average),t.largest===null?'—':num(t.largest)];
     return node('tr',{},node('td',{},formatDay(d)),...values.map(v=>node('td',{class:'num'},v)));
   }));
   const voids=list.filter(e=>e.kind==='urine');
   const max=Math.max(200,Math.ceil(voids.reduce((highest,e)=>Math.max(highest,e.amount),0)/200)*200);
-  $('chart-plots').replaceChildren(...days.map(d=>{
+  replaceContent($('chart-plots'),...days.map(d=>{
     const data=voids.filter(e=>e.localDate===d);
     return node('div',{class:'chart-day'},
       node('div',{class:'chart-day-title'},node('h3',{},formatDay(d,true)),node('span',{},`${data.length} ${data.length===1?'visit':'visits'} · ${num(data.reduce((n,e)=>n+e.amount,0))} mL out`)),
       data.length?makePlot(data,max,d):node('p',{class:'hint'},'No urination entries recorded for this day.'));
   }));
-  $('chart-rows').replaceChildren(...(list.length?list.map(e=>node('tr',{},node('td',{},formatDay(e.localDate)),node('td',{},e.localTime),node('td',{},e.kind==='drink'?e.drink:'Urination'),node('td',{class:'num'},e.kind==='drink'?num(e.amount):'—'),node('td',{class:'num'},e.kind==='urine'?num(e.amount):'—'),node('td',{class:'note-cell'},e.note))):[node('tr',{},node('td',{colspan:6},'No entries in this date range.'))]));
+  replaceContent($('chart-rows'),...(list.length?list.map(e=>node('tr',{},node('td',{},formatDay(e.localDate)),node('td',{},e.localTime),node('td',{},e.kind==='drink'?e.drink:'Urination'),node('td',{class:'num'},e.kind==='drink'?num(e.amount):'—'),node('td',{class:'num'},e.kind==='urine'?num(e.amount):'—'),node('td',{class:'note-cell'},e.note))):[node('tr',{},node('td',{colspan:6},'No entries in this date range.'))]));
   $('export-csv').disabled=!list.length;
 }
 function setView(view){activeView=view;for(const key of ['diary','chart','settings'])$(key+'-view').hidden=key!==view;document.querySelectorAll('[data-view]').forEach(b=>{if(b.dataset.view===view)b.setAttribute('aria-current','page');else b.removeAttribute('aria-current')});if(view==='chart')renderChart();if(view==='settings')updateStorageStatus()}
 function chooseDrink(drink){drinkChoice=drink;document.querySelectorAll('[data-drink]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.drink===drink)));$('other-drink-label').hidden=drink!=='Other';$('other-drink').required=drink==='Other'}
-function openEntry(kind,existing=null){if(!ready)return;editing=existing;entryKind=kind;captured=new Date();$('entry-form').reset();$('entry-date').value=existing?.localDate||dateKey(captured);$('entry-time').value=existing?.localTime||timeKey(captured);$('entry-date').max=existing&&existing.localDate>today()?existing.localDate:today();$('entry-amount').value=existing?.amount||'';$('entry-note').value=existing?.note||'';$('drink-field').hidden=kind!=='drink';$('amount-label').textContent=kind==='drink'?'Amount in':'Amount out';$('entry-dialog-title').textContent=existing?(kind==='drink'?'Edit drink':'Edit urination'):(kind==='drink'?'Add a drink':'Add urination');$('save-entry').textContent=existing?'Save changes':kind==='drink'?'Save drink':'Save urination';$('delete-row').hidden=!existing;chooseDrink(existing?(DRINKS.slice(0,-1).includes(existing.drink)?existing.drink:existing.kind==='drink'?'Other':''):'');if(drinkChoice==='Other')$('other-drink').value=existing.drink;showError('entry-error','');$('entry-dialog').showModal();if(kind==='urine'||existing)$('entry-amount').focus();else document.querySelector('[data-drink]').focus()}
-function closeEntry(){if(!saving)$('entry-dialog').close()}
+function openEntry(kind,existing=null){if(!ready){showError('global-error','The diary is still opening. Please wait a moment and try again.');return}try{editing=existing;entryKind=kind;captured=new Date();$('entry-form').reset();$('entry-date').value=existing?.localDate||dateKey(captured);$('entry-time').value=existing?.localTime||timeKey(captured);$('entry-date').max=existing&&existing.localDate>today()?existing.localDate:today();$('entry-amount').value=existing?.amount||'';$('entry-note').value=existing?.note||'';$('drink-field').hidden=kind!=='drink';$('amount-label').textContent=kind==='drink'?'Amount in':'Amount out';$('entry-dialog-title').textContent=existing?(kind==='drink'?'Edit drink':'Edit urination'):(kind==='drink'?'Add a drink':'Add urination');$('save-entry').textContent=existing?'Save changes':kind==='drink'?'Save drink':'Save urination';$('delete-row').hidden=!existing;chooseDrink(existing?(DRINKS.slice(0,-1).includes(existing.drink)?existing.drink:existing.kind==='drink'?'Other':''):'');if(drinkChoice==='Other')$('other-drink').value=existing.drink;showError('entry-error','');openDialog($('entry-dialog'));if(kind==='urine'||existing)$('entry-amount').focus();else document.querySelector('[data-drink]').focus()}catch(error){console.error(error);showError('global-error','The entry form could not open. Close and reopen the app, then try again. Your saved entries have not been changed.')}}
+function closeEntry(){if(!saving)closeDialog($('entry-dialog'))}
 function entryFromForm(){
-  const day=$('entry-date').value,time=$('entry-time').value,amount=Number($('entry-amount').value),note=$('entry-note').value.trim();
+  const rawTime=$('entry-time').value;
+  const time=/^([01]\d|2[0-3]):[0-5]\d(?::00(?:\.0+)?)?$/.test(rawTime)?rawTime.slice(0,5):rawTime;
+  const day=$('entry-date').value,amount=Number($('entry-amount').value),note=$('entry-note').value.trim();
   if(!validDay(day)||!/^([01]\d|2[0-3]):[0-5]\d$/.test(time))throw new Error('Please enter a valid date and time.');
   if(!Number.isInteger(amount)||amount<1||amount>10000)throw new Error('Enter a whole amount from 1 to 10,000 mL.');
   // A recorded wall time belongs to its original offset, even after travel.
@@ -139,10 +308,36 @@ function entryFromForm(){
   }
   return{id:editing?.id||uid(),kind:entryKind,amount,drink,note,localDate:day,localTime:time,timestamp,utcOffsetMinutes:sameTime?editing.utcOffsetMinutes:originalTime?-captured.getTimezoneOffset():-date.getTimezoneOffset(),createdAt:editing?.createdAt||new Date().toISOString(),updatedAt:new Date().toISOString()};
 }
-async function saveEntry(event){event.preventDefault();if(saving)return;showError('entry-error','');let entry;try{entry=entryFromForm()}catch(error){showError('entry-error',error.message);return}saving=true;$('save-entry').disabled=true;try{await transaction(['entries'],'readwrite',tx=>tx.objectStore('entries').put(entry));selectedDate=entry.localDate;$('entry-dialog').close();await changed();toast(editing?'Changes saved':entry.kind==='drink'?'Drink saved':'Urination saved');navigator.storage?.persist?.().catch(()=>{})}catch(error){showError('entry-error',storageMessage(error))}finally{saving=false;$('save-entry').disabled=false}}
+function showEntryError(message){
+  showError('entry-error',message);
+  $('entry-error').scrollIntoView({block:'nearest'});
+}
+async function saveEntry(event){
+  event.preventDefault();
+  if(saving)return;
+  showError('entry-error','');
+  let entry;
+  // Validate here so a mobile browser cannot silently block the submit event
+  // with an off-screen native validation bubble.
+  try{entry=entryFromForm()}catch(error){showEntryError(error.message);return}
+  saving=true;
+  const button=$('save-entry'),label=button.textContent;
+  button.disabled=true;button.textContent='Saving…';
+  const saveTimer=setTimeout(()=>showEntryError('Saving is taking longer than usual. Keep this form open while the device finishes saving.'),10000);
+  try{
+    await transaction(['entries'],'readwrite',tx=>tx.objectStore('entries').put(entry));
+    clearTimeout(saveTimer);
+    selectedDate=entry.localDate;
+    closeDialog($('entry-dialog'));
+    await changed();
+    toast(editing?'Changes saved':entry.kind==='drink'?'Drink saved':'Urination saved');
+    navigator.storage?.persist?.().catch(()=>{});
+  }catch(error){showEntryError(storageMessage(error))}
+  finally{clearTimeout(saveTimer);saving=false;button.disabled=false;button.textContent=label}
+}
 function toast(message,undo=null){clearTimeout(toastTimer);$('toast-message').textContent=message;$('toast-undo').hidden=!undo;$('toast-undo').onclick=async()=>{try{await undo();$('toast').hidden=true}catch(error){showError('global-error',storageMessage(error))}};$('toast').hidden=false;toastTimer=setTimeout(()=>$('toast').hidden=true,undo?15000:5000)}
-function confirmDialog(title,message,label,action,danger=false){$('confirm-title').textContent=title;$('confirm-message').textContent=message;$('confirm-ok').textContent=label;$('confirm-ok').className=danger?'danger':'primary';showError('confirm-error','');confirmAction=action;$('confirm-dialog').showModal();$('confirm-cancel').focus()}
-function requestDelete(){if(!editing||saving)return;const old=editing;confirmDialog('Delete this entry?',`${old.kind==='drink'?old.drink:'Urination'} · ${old.amount} mL · ${formatDay(old.localDate)} at ${old.localTime}`,'Delete entry',async()=>{await transaction(['entries'],'readwrite',tx=>tx.objectStore('entries').delete(old.id));$('entry-dialog').close();await changed();toast('Entry deleted',async()=>{await transaction(['entries'],'readwrite',tx=>tx.objectStore('entries').put({...old,updatedAt:new Date().toISOString()}));await changed()})},true)}
+function confirmDialog(title,message,label,action,danger=false){$('confirm-title').textContent=title;$('confirm-message').textContent=message;$('confirm-ok').textContent=label;$('confirm-ok').className=danger?'danger':'primary';showError('confirm-error','');confirmAction=action;openDialog($('confirm-dialog'));$('confirm-cancel').focus()}
+function requestDelete(){if(!editing||saving)return;const old=editing;confirmDialog('Delete this entry?',`${old.kind==='drink'?old.drink:'Urination'} · ${old.amount} mL · ${formatDay(old.localDate)} at ${old.localTime}`,'Delete entry',async()=>{await transaction(['entries'],'readwrite',tx=>tx.objectStore('entries').delete(old.id));closeDialog($('entry-dialog'));await changed();toast('Entry deleted',async()=>{await transaction(['entries'],'readwrite',tx=>tx.objectStore('entries').put({...old,updatedAt:new Date().toISOString()}));await changed()})},true)}
 function applyRange(){const start=$('range-start').value,end=$('range-end').value;let error='';if(!validDay(start)||!validDay(end))error='Choose valid start and end dates.';else if(end<start)error='The end date must be on or after the start date.';else if(end>shiftDay(start,30))error='Choose a range of 31 days or fewer.';showError('range-error',error);if(error)return false;rangeStart=start;rangeEnd=end;renderChart();return true}
 function download(content,type,filename){const blob=new Blob([content],{type}),url=URL.createObjectURL(blob),a=node('a',{href:url,download:filename});document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),60000)}
 function csvCell(value){let s=String(value??'');if(/^(?:\s*[=+\-@]|[\t\r])/.test(s))s="'"+s;return '"'+s.replace(/"/g,'""')+'"'}
@@ -155,16 +350,32 @@ async function updateStorageStatus(){try{if(!navigator.storage?.persisted){$('st
 async function setupPWA(){if(location.protocol==='file:'){$('install-state').textContent='You are using the HTML file directly. To install on a phone, open a hosted HTTPS copy of this folder. For a computer preview, use start-local.ps1.';$('offline-state').textContent='The HTML file works locally; PWA offline installation needs HTTPS or localhost.';return}if(!('serviceWorker'in navigator)||!isSecureContext){$('offline-state').textContent='Offline installation needs HTTPS or localhost in a supported browser.';return}try{const registration=await navigator.serviceWorker.register('./sw.js',{scope:'./'});function offerUpdate(){if(registration.waiting&&navigator.serviceWorker.controller){waitingWorker=registration.waiting;$('update-notice').hidden=false}}offerUpdate();registration.addEventListener('updatefound',()=>{const worker=registration.installing;worker?.addEventListener('statechange',()=>{if(worker.state==='installed')offerUpdate()})});navigator.serviceWorker.ready.then(()=>$('offline-state').textContent='Offline app files are ready on this device.');let refreshing=false;navigator.serviceWorker.addEventListener('controllerchange',()=>{if(waitingWorker&&!refreshing){if(document.querySelector('dialog[open]')||saving){updateActivated=true;$('update-notice').hidden=false;$('update-notice').querySelector('p').textContent='The app was updated in another window. Save your entry, then reload when ready.';$('update-button').textContent='Reload app';return}refreshing=true;location.reload()}})}catch(error){$('offline-state').textContent='Offline setup is not ready. Reopen the app online to try again.';console.warn(error)}}
 document.querySelectorAll('[data-view]').forEach(b=>b.addEventListener('click',()=>setView(b.dataset.view)));
 for(const drink of DRINKS){const button=node('button',{type:'button','data-drink':drink,'aria-pressed':'false'},drink);button.addEventListener('click',()=>{chooseDrink(drink);if(drink==='Other')$('other-drink').focus()});$('drink-options').append(button)}
-$('add-drink').addEventListener('click',()=>openEntry('drink'));$('add-urine').addEventListener('click',()=>openEntry('urine'));$('close-entry').addEventListener('click',closeEntry);$('cancel-entry').addEventListener('click',closeEntry);$('entry-dialog').addEventListener('cancel',event=>{if(saving)event.preventDefault()});$('entry-form').addEventListener('submit',saveEntry);$('delete-entry').addEventListener('click',requestDelete);
+$('add-drink').addEventListener('click',()=>openEntry('drink'));$('add-urine').addEventListener('click',()=>openEntry('urine'));$('close-entry').addEventListener('click',closeEntry);$('cancel-entry').addEventListener('click',closeEntry);$('entry-dialog').addEventListener('cancel',event=>{if(saving)event.preventDefault()});$('confirm-dialog').addEventListener('cancel',event=>{if($('confirm-ok').disabled)event.preventDefault()});$('entry-form').addEventListener('submit',saveEntry);$('delete-entry').addEventListener('click',requestDelete);
 document.querySelectorAll('[data-amount]').forEach(b=>b.addEventListener('click',()=>{$('entry-amount').value=b.dataset.amount}));
 $('previous-day').addEventListener('click',()=>selectDay(shiftDay(selectedDate,-1)));$('next-day').addEventListener('click',()=>selectDay(shiftDay(selectedDate,1)));$('go-today').addEventListener('click',()=>selectDay(today()));$('diary-date').addEventListener('change',event=>selectDay(event.target.value));$('diary-date').max=today();
 $('range-start').value=rangeStart;$('range-end').value=rangeEnd;$('range-form').addEventListener('submit',event=>{event.preventDefault();applyRange()});$('last-three').addEventListener('click',()=>{$('range-start').value=shiftDay(today(),-2);$('range-end').value=today();applyRange()});$('export-csv').addEventListener('click',exportCSV);$('print-chart').addEventListener('click',()=>{if(applyRange())window.print()});
 $('export-backup').addEventListener('click',exportBackup);$('import-backup').addEventListener('click',()=>$('backup-file').click());$('backup-file').addEventListener('change',event=>importFile(event.target.files[0]));$('protect-storage').addEventListener('click',async()=>{try{const granted=await navigator.storage?.persist?.();toast(granted?'Storage protection enabled':'Keep a downloaded backup; storage protection was not granted.');updateStorageStatus()}catch{toast('Storage protection is not available here. Keep a backup.')}});
-$('confirm-cancel').addEventListener('click',()=>$('confirm-dialog').close());$('confirm-dialog').addEventListener('close',()=>{$('confirm-cancel').hidden=false});$('confirm-ok').addEventListener('click',async()=>{if(!confirmAction)return;$('confirm-ok').disabled=true;$('confirm-cancel').disabled=true;try{await confirmAction();$('confirm-dialog').close();confirmAction=null}catch(error){showError('confirm-error',storageMessage(error))}finally{$('confirm-ok').disabled=false;$('confirm-cancel').disabled=false}});
+$('confirm-cancel').addEventListener('click',()=>closeDialog($('confirm-dialog')));$('confirm-dialog').addEventListener('close',()=>{$('confirm-cancel').hidden=false});$('confirm-ok').addEventListener('click',async()=>{if(!confirmAction)return;$('confirm-ok').disabled=true;$('confirm-cancel').disabled=true;try{await confirmAction();closeDialog($('confirm-dialog'));confirmAction=null}catch(error){showError('confirm-error',storageMessage(error))}finally{$('confirm-ok').disabled=false;$('confirm-cancel').disabled=false}});
 window.addEventListener('beforeinstallprompt',event=>{event.preventDefault();installPrompt=event;$('install-app').hidden=false});$('install-app').addEventListener('click',async()=>{if(!installPrompt)return;await installPrompt.prompt();await installPrompt.userChoice;installPrompt=null;$('install-app').hidden=true});window.addEventListener('appinstalled',()=>{$('install-app').hidden=true;$('install-state').textContent='The app is installed. Open it from your home screen or app list.'});$('update-button').addEventListener('click',()=>{if(document.querySelector('dialog[open]')||saving){toast('Save or close the open form before updating.');return}if(updateActivated){location.reload();return}waitingWorker?.postMessage({type:'SKIP_WAITING'})});
 try{channel=new BroadcastChannel(APP);channel.onmessage=()=>{if(ready)refresh().catch(()=>{})}}catch{}
 document.addEventListener('visibilitychange',()=>{if(!document.hidden&&ready){$('diary-date').max=today();refresh().catch(()=>showError('global-error','The diary could not be refreshed. Reload to try again.'))}});
-async function init(){renderDiary();renderChart();setReady();try{db=await openDb();await refresh();ready=true;setReady();showError('global-error','')}catch(error){console.error(error);showError('global-error','Your diary storage could not be opened. Try a normal (not private) browser window or reload. New entries are disabled so nothing is falsely marked as saved.');$('entry-count').textContent='Storage unavailable';$('diary-empty').hidden=true}setupPWA()}
+async function init(){
+  setReady();
+  const startupTimer=setTimeout(()=>showError('global-error','Still opening your saved diary. If this message stays here, close and reopen the app. Your saved entries have not been changed.'),10000);
+  try{
+    // Include first render in error handling: a browser compatibility error must
+    // never leave record buttons silently disabled.
+    renderDiary();renderChart();
+    $('entry-count').textContent='Opening diary…';
+    db=await openDb();
+    await refresh();ready=true;setReady();showError('global-error','');
+  }catch(error){
+    console.error(error);
+    showError('global-error','The diary could not finish opening in this browser. Your saved entries have not been changed. Close and reopen the app, then try again. If it still happens, update your browser.');
+    $('entry-count').textContent='Diary unavailable';$('diary-empty').hidden=true;
+  }finally{clearTimeout(startupTimer)}
+  setupPWA();
+}
 init();
 })();
 </script>

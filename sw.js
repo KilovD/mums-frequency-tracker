@@ -1,7 +1,7 @@
 'use strict';
 
 // Increase VERSION when changing app files. Updates wait for the user's choice.
-const VERSION = 'v1';
+const VERSION = 'v2';
 const PREFIX = 'mums-frequency-tracker-';
 const CACHE_NAME = PREFIX + VERSION;
 const BASE = new URL('./', self.location.href);
