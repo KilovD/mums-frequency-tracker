@@ -1,0 +1,4 @@
+# Personal exports must never be published with the app.
+*backup*.json
+frequency-diary_*.csv
+*.pdf
